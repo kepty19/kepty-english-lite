@@ -578,7 +578,7 @@
 <body class="bg-slate-50 text-slate-900 pb-24 text-center">
 <div class="menu-pill-trigger" onclick="toggleSideMenu(true)">| Menu</div>
 <div id="side-menu-overlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[5000] hidden" onclick="toggleSideMenu(false)"></div>
-<nav id="side-menu-content" class="fixed top-0 right-[-280px] w-[280px] h-full bg-white z-[5001] transition-all duration-300 shadow-lg border-l border-slate-100 p-6 flex flex-col"><div class="flex justify-between items-center mb-6"><div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] border-l-2 border-slate-500 pl-3">Menu</div><button onclick="toggleSideMenu(false)" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400"><i data-lucide="x" class="w-5 h-5"></i></button></div><div class="flex-1 flex flex-col gap-4 overflow-y-auto text-center"><div><div class="text-xs font-medium text-slate-600 tracking-tight px-2 mb-1.5">&#12488;&#12524;&#12540;&#12491;&#12531;&#12464;</div><div class="flex flex-col gap-0.5"><div onclick="switchApp('vocabulary'); toggleSideMenu(false);" id="side-nav-vocabulary" class="side-nav-training-item active"><i data-lucide="graduation-cap" class="w-4 h-4 flex-shrink-0"></i><span>Vocabulary</span></div><div onclick="switchApp('pronunciation'); toggleSideMenu(false);" id="side-nav-pronunciation" class="side-nav-training-item"><i data-lucide="mic-2" class="w-4 h-4 flex-shrink-0"></i><span>Pronunciation</span></div><div onclick="switchApp('grammar'); toggleSideMenu(false);" id="side-nav-grammar" class="side-nav-training-item"><i data-lucide="book-open" class="w-4 h-4 flex-shrink-0"></i><span>Grammar</span></div><div onclick="switchApp('shadowing'); toggleSideMenu(false);" id="side-nav-shadowing" class="side-nav-training-item"><i data-lucide="headphones" class="w-4 h-4 flex-shrink-0"></i><span>Shadowing</span></div><div onclick="switchApp('reading'); toggleSideMenu(false);" id="side-nav-reading" class="side-nav-training-item"><i data-lucide="book-marked" class="w-4 h-4 flex-shrink-0"></i><span>Reading</span></div><div onclick="switchApp('topicTalk'); toggleSideMenu(false);" id="side-nav-topicTalk" class="side-nav-training-item"><i data-lucide="message-circle" class="w-4 h-4 flex-shrink-0"></i><span>Topic Talk</span></div><div onclick="switchApp('speaking'); toggleSideMenu(false);" id="side-nav-speaking" class="side-nav-training-item"><i data-lucide="message-square" class="w-4 h-4 flex-shrink-0"></i><span>Speaking Form</span></div><div onclick="switchApp('chunk'); toggleSideMenu(false);" id="side-nav-chunk" class="side-nav-training-item"><i data-lucide="layers" class="w-4 h-4 flex-shrink-0"></i><span>Sentence Building</span></div></div></div><div class="border-t border-slate-100 pt-4 space-y-1"><button type="button" class="side-menu-item-link lite-contact-open w-full text-left" onclick="toggleSideMenu(false); if(window.KeptyLite){KeptyLite.openContact('');}"><div class="side-menu-icon-box"><i data-lucide="mail"></i></div><div class="flex flex-col"><span class="text-xs font-medium text-slate-600 tracking-tight">有料版のご相談・申し込み</span></div></button><a href="index.html" class="side-menu-item-link"><div class="side-menu-icon-box"><i data-lucide="home"></i></div><div class="flex flex-col"><span class="text-xs font-medium text-slate-600 tracking-tight">Lite トップ</span></div></a></div></div></nav>
+<nav id="side-menu-content" class="fixed top-0 right-[-280px] w-[280px] h-full bg-white z-[5001] transition-all duration-300 shadow-lg border-l border-slate-100 p-6 flex flex-col"><div class="flex justify-between items-center mb-6"><div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] border-l-2 border-slate-500 pl-3">Menu</div><button onclick="toggleSideMenu(false)" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400"><i data-lucide="x" class="w-5 h-5"></i></button></div><div class="flex-1 flex flex-col gap-4 overflow-y-auto text-center"><div><div class="text-xs font-medium text-slate-600 tracking-tight px-2 mb-1.5">&#12488;&#12524;&#12540;&#12491;&#12531;&#12464;</div><div class="flex flex-col gap-0.5"><div onclick="switchApp('vocabulary'); toggleSideMenu(false);" id="side-nav-vocabulary" class="side-nav-training-item active"><i data-lucide="graduation-cap" class="w-4 h-4 flex-shrink-0"></i><span>Vocabulary</span></div><div onclick="switchApp('pronunciation'); toggleSideMenu(false);" id="side-nav-pronunciation" class="side-nav-training-item"><i data-lucide="mic-2" class="w-4 h-4 flex-shrink-0"></i><span>Pronunciation</span></div><div onclick="switchApp('grammar'); toggleSideMenu(false);" id="side-nav-grammar" class="side-nav-training-item"><i data-lucide="book-open" class="w-4 h-4 flex-shrink-0"></i><span>Grammar</span></div><div onclick="switchApp('shadowing'); toggleSideMenu(false);" id="side-nav-shadowing" class="side-nav-training-item"><i data-lucide="headphones" class="w-4 h-4 flex-shrink-0"></i><span>Shadowing</span></div><div onclick="switchApp('reading'); toggleSideMenu(false);" id="side-nav-reading" class="side-nav-training-item"><i data-lucide="book-marked" class="w-4 h-4 flex-shrink-0"></i><span>Reading</span></div><div onclick="switchApp('topicTalk'); toggleSideMenu(false);" id="side-nav-topicTalk" class="side-nav-training-item"><i data-lucide="message-circle" class="w-4 h-4 flex-shrink-0"></i><span>Topic Talk</span></div><div onclick="switchApp('speaking'); toggleSideMenu(false);" id="side-nav-speaking" class="side-nav-training-item"><i data-lucide="message-square" class="w-4 h-4 flex-shrink-0"></i><span>Speaking Form</span></div><div onclick="switchApp('chunk'); toggleSideMenu(false);" id="side-nav-chunk" class="side-nav-training-item"><i data-lucide="layers" class="w-4 h-4 flex-shrink-0"></i><span>Sentence Building</span></div></div></div><div class="border-t border-slate-100 pt-4 space-y-1"><button type="button" class="side-menu-item-link lite-contact-open w-full text-left" onclick="toggleSideMenu(false)"><div class="side-menu-icon-box"><i data-lucide="mail"></i></div><div class="flex flex-col"><span class="text-xs font-medium text-slate-600 tracking-tight">有料版のご相談・申し込み</span></div></button><a href="index.html" class="side-menu-item-link"><div class="side-menu-icon-box"><i data-lucide="home"></i></div><div class="flex flex-col"><span class="text-xs font-medium text-slate-600 tracking-tight">Lite トップ</span></div></a></div></div></nav>
 <div class="p-4 max-w-5xl mx-auto">
     <header class="py-6 px-2">
         <div class="flex items-center gap-1.5 flex-wrap">
@@ -604,57 +604,57 @@
 <div id="tg-overlap-detail-modal" class="tg-modal-root tg-sub-modal"><div class="tg-modal-backdrop" onclick="closeTgOverlapDetail()" aria-hidden="true"></div><div class="tg-panel tg-panel--subdetail"><div class="tg-panel-top"><button type="button" class="tg-panel-x w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400" onclick="closeTgOverlapDetail()" aria-label="&#38281;&#12376;&#12427;"><i data-lucide="x" class="w-5 h-5"></i></button></div><div class="tg-panel-scroll"><div id="tg-overlap-detail-body"></div></div><button type="button" class="tg-close" onclick="closeTgOverlapDetail()">&#38281;&#12376;&#12427;</button></div></div>
 
 <!-- Kepty English Lite: contact / upgrade modal -->
-<div id="lite-contact-modal" class="fixed inset-0 z-[60000] items-center justify-center p-4 hidden" style="display:none" hidden aria-hidden="true">
-        <div class="absolute inset-0 bg-slate-900/50" data-lite-contact-close></div>
-        <div class="lite-contact-dialog relative z-[1]" role="dialog" aria-modal="true" aria-labelledby="lite-contact-title">
-            <button type="button" class="lite-contact-close" data-lite-contact-close aria-label="閉じる"><span aria-hidden="true">&times;</span></button>
+<div id="lite-contact-modal" hidden aria-hidden="true">
+  <div class="lite-contact-backdrop" data-lite-contact-close></div>
+  <div class="lite-contact-dialog" role="dialog" aria-modal="true" aria-labelledby="lite-contact-title">
+    <button type="button" class="lite-contact-close" data-lite-contact-close aria-label="閉じる"><span aria-hidden="true">&times;</span></button>
 
-            <div id="lite-contact-form-panel">
-                <h2 class="lite-contact-title" id="lite-contact-title">Contact Us</h2>
-                <div class="lite-contact-intro">
-                    <p>このアプリがあるだけでは十分ではありません。正しいやり方で取り組むことが大切です。</p>
-                    <p>たとえば次のようなときは、お気軽にご相談・お申し込みください。</p>
-                    <ul>
-                        <li>正しいトレーニングのやり方を知りたい</li>
-                        <li>効果の出やすい進め方を知りたい</li>
-                        <li>もっと効率よく実施する方法を知りたい</li>
-                        <li>有料版との違いを知りたい</li>
-                        <li>有料版に興味がある／申し込んでみたい</li>
-                    </ul>
-                </div>
-                <div id="lite-contact-reason-wrap" hidden>
-                    <p id="lite-contact-reason"></p>
-                </div>
-                <form id="lite-contact-form" class="lite-contact-form" novalidate>
-                    <p id="lite-contact-error" hidden></p>
-                    <div class="lite-contact-field">
-                        <label for="lite-contact-name">お名前 / Name <span class="lite-contact-required">*</span></label>
-                        <input id="lite-contact-name" name="userName" type="text" required autocomplete="name" placeholder="例：山田 太郎">
-                    </div>
-                    <div class="lite-contact-field">
-                        <label for="lite-contact-email">メールアドレス / Email <span class="lite-contact-required">*</span></label>
-                        <input id="lite-contact-email" name="userEmail" type="email" required autocomplete="email" placeholder="example@kepty.co">
-                    </div>
-                    <div class="lite-contact-field">
-                        <label for="lite-contact-message">お問い合わせ内容 / Message <span class="lite-contact-required">*</span></label>
-                        <textarea id="lite-contact-message" name="userMessage" rows="4" required placeholder="ご不明点や受講相談など、些細なことでもお気軽にお問い合わせください！"></textarea>
-                    </div>
-                    <button id="lite-contact-submit" type="submit">Send Message</button>
-                </form>
-            </div>
-
-            <div id="lite-contact-success" hidden>
-                <div class="lite-contact-success-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                </div>
-                <h3 class="lite-contact-success-title">送信が完了しました</h3>
-                <p class="lite-contact-success-text">お問い合わせありがとうございます。ご入力いただいた内容を確認の上、担当者よりご連絡いたします。</p>
-                <button type="button" class="lite-contact-submit-secondary" data-lite-contact-close>閉じる</button>
-            </div>
+    <div id="lite-contact-form-panel">
+      <h2 class="lite-contact-title" id="lite-contact-title">Contact Us</h2>
+      <div class="lite-contact-intro">
+        <p>このアプリがあるだけでは十分ではありません。正しいやり方で取り組むことが大切です。</p>
+        <p>たとえば次のようなときは、お気軽にご相談・お申し込みください。</p>
+        <ul>
+          <li>正しいトレーニングのやり方を知りたい</li>
+          <li>効果の出やすい進め方を知りたい</li>
+          <li>もっと効率よく実施する方法を知りたい</li>
+          <li>有料版との違いを知りたい</li>
+          <li>有料版に興味がある／申し込んでみたい</li>
+        </ul>
+      </div>
+      <div id="lite-contact-reason-wrap" hidden>
+        <p id="lite-contact-reason"></p>
+      </div>
+      <form id="lite-contact-form" class="lite-contact-form" novalidate>
+        <p id="lite-contact-error" hidden></p>
+        <div class="lite-contact-field">
+          <label for="lite-contact-name">お名前 / Name <span class="lite-contact-required">*</span></label>
+          <input id="lite-contact-name" name="userName" type="text" required autocomplete="name" placeholder="例：山田 太郎">
         </div>
+        <div class="lite-contact-field">
+          <label for="lite-contact-email">メールアドレス / Email <span class="lite-contact-required">*</span></label>
+          <input id="lite-contact-email" name="userEmail" type="email" required autocomplete="email" placeholder="example@kepty.co">
+        </div>
+        <div class="lite-contact-field">
+          <label for="lite-contact-message">お問い合わせ内容 / Message <span class="lite-contact-required">*</span></label>
+          <textarea id="lite-contact-message" name="userMessage" rows="4" required placeholder="ご不明点や受講相談など、些細なことでもお気軽にお問い合わせください！"></textarea>
+        </div>
+        <button id="lite-contact-submit" type="submit">Send Message</button>
+      </form>
     </div>
+
+    <div id="lite-contact-success" hidden>
+      <div class="lite-contact-success-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <h3 class="lite-contact-success-title">送信が完了しました</h3>
+      <p class="lite-contact-success-text">お問い合わせありがとうございます。ご入力いただいた内容を確認の上、担当者よりご連絡いたします。</p>
+      <button type="button" class="lite-contact-submit-secondary" data-lite-contact-close>閉じる</button>
+    </div>
+  </div>
+</div>
 <script src="kepty-lite.js"></script>
 <script>
 window.onerror = function(msg, url, line, col, err) { console.error('[GLOBAL ERROR]', msg, 'at line', line, ':', err); };

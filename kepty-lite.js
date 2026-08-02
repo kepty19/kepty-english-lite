@@ -1,5 +1,11 @@
 /**
- * Kepty English Lite — upgrade prompts + contact (Web3Forms, same endpoint as youth site).
+ * Kepty English Lite — contact modal + upgrade prompts
+ *
+ * Design notes (avoid regressions):
+ * - Modal show/hide is owned ONLY by lite-contact CSS classes (no Tailwind hidden/flex).
+ * - Close must stopPropagation + delay hide to prevent click-through reopening.
+ * - Open triggers use ONE path (delegation). Do not also put inline openContact onclicks.
+ * - training.html body is text-center; modal forces text-align:left !important.
  */
 (function (global) {
     var WEB3FORMS_ACCESS_KEY = 'bcb8a667-538a-4b4c-a0a6-f6f88f95aa08';
@@ -11,6 +17,7 @@
     var lastFocused = null;
     var pendingReason = '';
     var bound = false;
+    var closingGuardUntil = 0;
 
     function $(id) {
         return document.getElementById(id);
@@ -58,39 +65,34 @@
         if (reasonWrap) reasonWrap.hidden = !pendingReason;
     }
 
-    /** Beat Tailwind `.hidden { display:none !important }` with an open class. */
-    function setModalOpen(modal, open) {
-        if (!modal) return;
-        if (open) {
-            modal.removeAttribute('hidden');
-            modal.classList.remove('hidden');
-            modal.classList.add('lite-is-open');
-            modal.style.setProperty('display', 'flex', 'important');
-            modal.setAttribute('aria-hidden', 'false');
-        } else {
-            modal.setAttribute('hidden', '');
-            modal.classList.add('hidden');
-            modal.classList.remove('lite-is-open');
-            modal.style.setProperty('display', 'none', 'important');
-            modal.setAttribute('aria-hidden', 'true');
-        }
+    function isOpen(modal) {
+        return !!(modal && modal.classList.contains('is-open'));
     }
 
-    function isModalOpen(modal) {
-        return !!(modal && modal.classList.contains('lite-is-open'));
+    function setModalOpen(open) {
+        var modal = $('lite-contact-modal');
+        if (!modal) return;
+        if (open) {
+            modal.classList.add('is-open');
+            modal.removeAttribute('hidden');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('lite-contact-open');
+        } else {
+            modal.classList.remove('is-open');
+            modal.setAttribute('hidden', '');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('lite-contact-open');
+        }
     }
 
     function openContact(reasonText) {
+        if (Date.now() < closingGuardUntil) return false;
         var modal = $('lite-contact-modal');
-        if (!modal) {
-            console.warn('[KeptyLite] contact modal not found');
-            return false;
-        }
+        if (!modal) return false;
         pendingReason = reasonText ? String(reasonText) : '';
         lastFocused = document.activeElement;
         resetContactState();
-        setModalOpen(modal, true);
-        document.body.classList.add('lite-contact-open');
+        setModalOpen(true);
         window.setTimeout(function () {
             var first = $('lite-contact-name');
             if (first) {
@@ -98,15 +100,16 @@
                     first.focus();
                 } catch (e) {}
             }
-        }, 50);
+        }, 30);
         return true;
     }
 
     function closeContact() {
         var modal = $('lite-contact-modal');
-        if (!modal) return;
-        setModalOpen(modal, false);
-        document.body.classList.remove('lite-contact-open');
+        if (!modal || !isOpen(modal)) return;
+        // Prevent the same click from hitting an opener underneath.
+        closingGuardUntil = Date.now() + 400;
+        setModalOpen(false);
         pendingReason = '';
         if (lastFocused && typeof lastFocused.focus === 'function') {
             try {
@@ -116,46 +119,50 @@
     }
 
     function showLiteUpgrade(kind) {
-        var msg = kind === 'share' ? MSG_SHARE : MSG_SHADOWING;
-        openContact(msg);
+        openContact(kind === 'share' ? MSG_SHARE : MSG_SHADOWING);
         return false;
-    }
-
-    function onDocClick(event) {
-        var t = event.target;
-        if (!t || !t.closest) return;
-
-        var openBtn = t.closest('.lite-contact-open');
-        if (openBtn) {
-            event.preventDefault();
-            openContact('');
-            return;
-        }
-
-        var closeBtn = t.closest('[data-lite-contact-close]');
-        if (closeBtn) {
-            event.preventDefault();
-            closeContact();
-        }
     }
 
     function bindContactUi() {
         if (bound) return;
         bound = true;
 
-        var modal = $('lite-contact-modal');
-        if (modal) setModalOpen(modal, false);
-        document.body.classList.remove('lite-contact-open');
+        setModalOpen(false);
 
-        document.addEventListener('click', onDocClick, false);
+        document.addEventListener(
+            'click',
+            function (event) {
+                var t = event.target;
+                if (!t || !t.closest) return;
+
+                var openEl = t.closest('.lite-contact-open');
+                if (openEl) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    openContact('');
+                    return;
+                }
+
+                var closeEl = t.closest('[data-lite-contact-close]');
+                if (closeEl) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    closeContact();
+                }
+            },
+            true
+        ); // capture: handle before other handlers
 
         document.addEventListener('keydown', function (event) {
-            var m = $('lite-contact-modal');
-            if (event.key === 'Escape' && isModalOpen(m)) closeContact();
+            if (event.key === 'Escape' && isOpen($('lite-contact-modal'))) {
+                event.preventDefault();
+                closeContact();
+            }
         });
 
         var form = $('lite-contact-form');
         if (!form) return;
+
         form.addEventListener('submit', function (event) {
             event.preventDefault();
             setError(null);
