@@ -27,14 +27,25 @@
         errorEl.textContent = message;
     }
 
-    function resetContactState() {
-        var form = $('lite-contact-form');
-        if (form) form.reset();
-        setError(null);
+    function showContactFormPanel() {
         var formPanel = $('lite-contact-form-panel');
         var successPanel = $('lite-contact-success');
         if (formPanel) formPanel.hidden = false;
         if (successPanel) successPanel.hidden = true;
+    }
+
+    function showContactSuccessState() {
+        var formPanel = $('lite-contact-form-panel');
+        var successPanel = $('lite-contact-success');
+        if (formPanel) formPanel.hidden = true;
+        if (successPanel) successPanel.hidden = false;
+    }
+
+    function resetContactState() {
+        var form = $('lite-contact-form');
+        if (form) form.reset();
+        setError(null);
+        showContactFormState();
         var submitBtn = $('lite-contact-submit');
         if (submitBtn) {
             submitBtn.disabled = false;
@@ -174,11 +185,8 @@
                 })
                 .then(function (res) {
                     if (res.ok && res.result && res.result.success) {
-                        var formPanel = $('lite-contact-form-panel');
-                        var successPanel = $('lite-contact-success');
-                        if (formPanel) formPanel.hidden = true;
-                        if (successPanel) successPanel.hidden = false;
                         form.reset();
+                        showContactSuccessState();
                         return;
                     }
                     setError(

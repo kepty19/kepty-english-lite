@@ -40,24 +40,25 @@
 
     <div id="lite-contact-modal" class="fixed inset-0 z-[60000] items-center justify-center p-4 hidden" style="display:none" hidden aria-hidden="true">
         <div class="absolute inset-0 bg-slate-900/50" data-lite-contact-close></div>
-        <div class="lite-contact-dialog relative z-[1]">
-            <button type="button" class="lite-contact-close" data-lite-contact-close aria-label="閉じる">×</button>
-            <h2 class="lite-contact-title" id="lite-contact-title">Contact Us</h2>
-            <div class="lite-contact-intro">
-                <p>このアプリがあるだけでは十分ではありません。正しいやり方で取り組むことが大切です。</p>
-                <p>たとえば次のようなときは、お気軽にご相談・お申し込みください。</p>
-                <ul>
-                    <li>正しいトレーニングのやり方を知りたい</li>
-                    <li>効果の出やすい進め方を知りたい</li>
-                    <li>もっと効率よく実施する方法を知りたい</li>
-                    <li>有料版との違いを知りたい</li>
-                    <li>有料版に興味がある／申し込んでみたい</li>
-                </ul>
-            </div>
-            <div id="lite-contact-reason-wrap" hidden>
-                <p id="lite-contact-reason"></p>
-            </div>
+        <div class="lite-contact-dialog relative z-[1]" role="dialog" aria-modal="true" aria-labelledby="lite-contact-title">
+            <button type="button" class="lite-contact-close" data-lite-contact-close aria-label="閉じる"><span aria-hidden="true">&times;</span></button>
+
             <div id="lite-contact-form-panel">
+                <h2 class="lite-contact-title" id="lite-contact-title">Contact Us</h2>
+                <div class="lite-contact-intro">
+                    <p>このアプリがあるだけでは十分ではありません。正しいやり方で取り組むことが大切です。</p>
+                    <p>たとえば次のようなときは、お気軽にご相談・お申し込みください。</p>
+                    <ul>
+                        <li>正しいトレーニングのやり方を知りたい</li>
+                        <li>効果の出やすい進め方を知りたい</li>
+                        <li>もっと効率よく実施する方法を知りたい</li>
+                        <li>有料版との違いを知りたい</li>
+                        <li>有料版に興味がある／申し込んでみたい</li>
+                    </ul>
+                </div>
+                <div id="lite-contact-reason-wrap" hidden>
+                    <p id="lite-contact-reason"></p>
+                </div>
                 <form id="lite-contact-form" class="lite-contact-form" novalidate>
                     <p id="lite-contact-error" hidden></p>
                     <div class="lite-contact-field">
@@ -75,9 +76,16 @@
                     <button id="lite-contact-submit" type="submit">Send Message</button>
                 </form>
             </div>
+
             <div id="lite-contact-success" hidden>
-                <p>送信が完了しました。担当よりご連絡いたします。</p>
-                <button type="button" class="lite-contact-success-close" data-lite-contact-close>閉じる</button>
+                <div class="lite-contact-success-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                <h3 class="lite-contact-success-title">送信が完了しました</h3>
+                <p class="lite-contact-success-text">お問い合わせありがとうございます。ご入力いただいた内容を確認の上、担当者よりご連絡いたします。</p>
+                <button type="button" class="lite-contact-submit-secondary" data-lite-contact-close>閉じる</button>
             </div>
         </div>
     </div>
