@@ -46,14 +46,33 @@
         if (reasonWrap) reasonWrap.hidden = !pendingReason;
     }
 
+    /** Tailwind `flex` overrides HTML [hidden]; drive visibility with inline display. */
+    function setModalOpen(modal, open) {
+        if (!modal) return;
+        if (open) {
+            modal.removeAttribute('hidden');
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
+            modal.setAttribute('aria-hidden', 'false');
+        } else {
+            modal.setAttribute('hidden', '');
+            modal.classList.add('hidden');
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+        }
+    }
+
+    function isModalOpen(modal) {
+        return !!(modal && modal.style.display === 'flex');
+    }
+
     function openContact(reasonText) {
         var modal = $('lite-contact-modal');
         if (!modal) return;
         pendingReason = reasonText ? String(reasonText) : '';
         lastFocused = document.activeElement;
         resetContactState();
-        modal.hidden = false;
-        modal.setAttribute('aria-hidden', 'false');
+        setModalOpen(modal, true);
         document.body.classList.add('lite-contact-open');
         window.setTimeout(function () {
             var first = $('lite-contact-name');
@@ -69,8 +88,7 @@
     function closeContact() {
         var modal = $('lite-contact-modal');
         if (!modal) return;
-        modal.hidden = true;
-        modal.setAttribute('aria-hidden', 'true');
+        setModalOpen(modal, false);
         document.body.classList.remove('lite-contact-open');
         pendingReason = '';
         if (lastFocused && typeof lastFocused.focus === 'function') {
@@ -88,7 +106,11 @@
 
     function bindContactUi() {
         var modal = $('lite-contact-modal');
-        if (!modal || modal.getAttribute('data-lite-bound') === '1') return;
+        if (!modal) return;
+        // Always force closed on load (fixes Tailwind flex vs [hidden]).
+        setModalOpen(modal, false);
+        document.body.classList.remove('lite-contact-open');
+        if (modal.getAttribute('data-lite-bound') === '1') return;
         modal.setAttribute('data-lite-bound', '1');
 
         modal.querySelectorAll('[data-lite-contact-close]').forEach(function (btn) {
@@ -103,7 +125,7 @@
         });
 
         document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape' && modal && !modal.hidden) closeContact();
+            if (event.key === 'Escape' && isModalOpen(modal)) closeContact();
         });
 
         var form = $('lite-contact-form');
