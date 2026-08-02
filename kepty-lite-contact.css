@@ -4,6 +4,14 @@
   font-family: 'Open Sans', 'Noto Sans JP', sans-serif;
   color: #111;
 }
+#lite-contact-modal.lite-is-open {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+#lite-contact-modal:not(.lite-is-open) {
+  display: none !important;
+}
 #lite-contact-modal * {
   box-sizing: border-box;
 }

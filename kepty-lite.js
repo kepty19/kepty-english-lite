@@ -10,6 +10,7 @@
 
     var lastFocused = null;
     var pendingReason = '';
+    var bound = false;
 
     function $(id) {
         return document.getElementById(id);
@@ -27,7 +28,7 @@
         errorEl.textContent = message;
     }
 
-    function showContactFormPanel() {
+    function showContactFormState() {
         var formPanel = $('lite-contact-form-panel');
         var successPanel = $('lite-contact-success');
         if (formPanel) formPanel.hidden = false;
@@ -57,29 +58,34 @@
         if (reasonWrap) reasonWrap.hidden = !pendingReason;
     }
 
-    /** Tailwind `flex` overrides HTML [hidden]; drive visibility with inline display. */
+    /** Beat Tailwind `.hidden { display:none !important }` with an open class. */
     function setModalOpen(modal, open) {
         if (!modal) return;
         if (open) {
             modal.removeAttribute('hidden');
             modal.classList.remove('hidden');
-            modal.style.display = 'flex';
+            modal.classList.add('lite-is-open');
+            modal.style.setProperty('display', 'flex', 'important');
             modal.setAttribute('aria-hidden', 'false');
         } else {
             modal.setAttribute('hidden', '');
             modal.classList.add('hidden');
-            modal.style.display = 'none';
+            modal.classList.remove('lite-is-open');
+            modal.style.setProperty('display', 'none', 'important');
             modal.setAttribute('aria-hidden', 'true');
         }
     }
 
     function isModalOpen(modal) {
-        return !!(modal && modal.style.display === 'flex');
+        return !!(modal && modal.classList.contains('lite-is-open'));
     }
 
     function openContact(reasonText) {
         var modal = $('lite-contact-modal');
-        if (!modal) return;
+        if (!modal) {
+            console.warn('[KeptyLite] contact modal not found');
+            return false;
+        }
         pendingReason = reasonText ? String(reasonText) : '';
         lastFocused = document.activeElement;
         resetContactState();
@@ -87,13 +93,13 @@
         document.body.classList.add('lite-contact-open');
         window.setTimeout(function () {
             var first = $('lite-contact-name');
-            if (first) first.focus();
+            if (first) {
+                try {
+                    first.focus();
+                } catch (e) {}
+            }
         }, 50);
-        if (global.lucide && typeof global.lucide.createIcons === 'function') {
-            try {
-                global.lucide.createIcons();
-            } catch (e) {}
-        }
+        return true;
     }
 
     function closeContact() {
@@ -115,28 +121,37 @@
         return false;
     }
 
+    function onDocClick(event) {
+        var t = event.target;
+        if (!t || !t.closest) return;
+
+        var openBtn = t.closest('.lite-contact-open');
+        if (openBtn) {
+            event.preventDefault();
+            openContact('');
+            return;
+        }
+
+        var closeBtn = t.closest('[data-lite-contact-close]');
+        if (closeBtn) {
+            event.preventDefault();
+            closeContact();
+        }
+    }
+
     function bindContactUi() {
+        if (bound) return;
+        bound = true;
+
         var modal = $('lite-contact-modal');
-        if (!modal) return;
-        // Always force closed on load (fixes Tailwind flex vs [hidden]).
-        setModalOpen(modal, false);
+        if (modal) setModalOpen(modal, false);
         document.body.classList.remove('lite-contact-open');
-        if (modal.getAttribute('data-lite-bound') === '1') return;
-        modal.setAttribute('data-lite-bound', '1');
 
-        modal.querySelectorAll('[data-lite-contact-close]').forEach(function (btn) {
-            btn.addEventListener('click', closeContact);
-        });
-
-        document.querySelectorAll('.lite-contact-open').forEach(function (btn) {
-            btn.addEventListener('click', function (event) {
-                event.preventDefault();
-                openContact('');
-            });
-        });
+        document.addEventListener('click', onDocClick, false);
 
         document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape' && isModalOpen(modal)) closeContact();
+            var m = $('lite-contact-modal');
+            if (event.key === 'Escape' && isModalOpen(m)) closeContact();
         });
 
         var form = $('lite-contact-form');
@@ -208,12 +223,6 @@
         });
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bindContactUi);
-    } else {
-        bindContactUi();
-    }
-
     global.KeptyLite = {
         openContact: openContact,
         closeContact: closeContact,
@@ -221,4 +230,10 @@
         MSG_SHADOWING: MSG_SHADOWING,
         MSG_SHARE: MSG_SHARE
     };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bindContactUi);
+    } else {
+        bindContactUi();
+    }
 })(typeof window !== 'undefined' ? window : this);
