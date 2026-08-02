@@ -1,0 +1,944 @@
+/* ============================================
+   KEPTY ENGLISH PORTAL - STYLES
+   ============================================
+   Mobile-first English learning portal CSS
+   Organized by component/feature sections
+   ============================================ */
+
+/* ============================================
+   1. CSS CUSTOM PROPERTIES (VARIABLES)
+   ============================================ */
+:root {
+    /* Brand Colors */
+    --kepty-orange: #CE4A22;
+    --kepty-light-orange: #FFEDE8;
+    --kepty-mid-orange: #FAC3B1;
+    --kepty-green: #10b981;
+    --kepty-light-green: #ecfdf5;
+    
+    /* Highlight Colors (Sound Changes) */
+    --hl-blue: #bfdbfe;
+    --hl-pink: #fbcfe8;
+    --hl-green-soft: #bbf7d0;
+    --hl-yellow: #fef08a;
+}
+
+/* ============================================
+   2. BASE STYLES
+   ============================================ */
+body {
+    font-family: 'Open Sans', 'Noto Sans JP', sans-serif;
+    -webkit-overflow-scrolling: touch;
+    background-color: #f8fafc;
+}
+
+/* Brand Color Classes */
+.bg-kepty-orange {
+    background-color: var(--kepty-orange) !important;
+}
+
+.text-kepty-orange {
+    color: var(--kepty-orange) !important;
+}
+
+
+/* ============================================
+   4. MODE SWITCH COMPONENT
+   ============================================ */
+.mode-switch-wrapper {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: 16px;
+}
+
+.mode-switch-container {
+    background-color: #f1f5f9;
+    border-radius: 10px;
+    padding: 2px;
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 34px;
+}
+
+.mode-switch-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 400;
+    z-index: 10;
+    transition: color 0.25s;
+    color: #94a3b8;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mode-switch-btn.active {
+    color: var(--kepty-orange);
+    font-weight: 700;
+}
+
+.mode-slider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: calc(100% - 4px);
+    background-color: white;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    z-index: 1;
+}
+
+/* ============================================
+   5. CATEGORY TABS
+   ============================================ */
+.category-tab {
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-weight: 600;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    min-width: 60px;
+    font-size: 11px;
+    border-radius: 9999px;
+    border: 1px solid #f1f5f9;
+    background: white;
+    color: #94a3b8;
+    cursor: pointer;
+}
+
+.category-tab-sm {
+    height: 26px;
+    padding: 0 10px;
+    min-width: 44px;
+    font-size: 10px;
+}
+
+.category-tab.active {
+    background-color: var(--kepty-orange) !important;
+    color: white !important;
+    font-weight: 700;
+    border-color: var(--kepty-orange);
+}
+
+/* ============================================
+   6. THEME MENU / SCROLL
+   ============================================ */
+.theme-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 0 4px 8px 4px;
+    scrollbar-width: none;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.theme-item {
+    padding: 8px 0;
+    border-bottom: 3px solid transparent;
+    font-size: 13px;
+    font-weight: 400;
+    color: #94a3b8;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.theme-item.active {
+    color: #1e293b;
+    font-weight: 700;
+    border-bottom-color: var(--kepty-orange);
+}
+
+/* ============================================
+   7. CARDS
+   ============================================ */
+
+/* Base Word Card */
+.word-card {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid #f1f5f9;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    width: 100%;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+/* Grammar explain (spreadsheet HTML): mobile wrapping + badge + English phrase rows */
+.word-card.grammar-explain-root {
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+}
+
+.grammar-explain-root {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+/* Grammar「本日の学習ロードマップ」: ラベル（命令・勧誘：等）と本文を2列。狭い画面は1列にして不自然な途中改行を防ぐ */
+.grammar-explain-roadmap-grid {
+    display: grid;
+    grid-template-columns: minmax(10.5rem, min(46%, 13rem)) minmax(0, 1fr);
+    gap: 0.25rem 0.75rem;
+    align-items: start;
+    min-width: 0;
+}
+
+.grammar-explain-roadmap-label {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    line-height: 1.45;
+}
+
+.grammar-explain-roadmap-body {
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+@media (max-width: 479px) {
+    .grammar-explain-roadmap-grid {
+        grid-template-columns: 1fr;
+        gap: 0.35rem 0;
+    }
+
+    .grammar-explain-roadmap-label {
+        white-space: normal;
+    }
+}
+
+@media (min-width: 480px) {
+    .grammar-explain-roadmap-grid {
+        align-items: center;
+    }
+
+    .grammar-explain-roadmap-label {
+        white-space: nowrap;
+    }
+}
+
+.grammar-explain-root ol {
+    list-style-position: outside;
+    padding-left: 1.25em;
+}
+
+.grammar-explain-root ol li {
+    margin: 0.35em 0;
+    padding-left: 0.25em;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* 鉄則リスト等: 「1.」が digit と . で改行されないよう番号マーカーを1行に固定 */
+.grammar-explain-root ul li.flex.items-start > span:first-child {
+    white-space: nowrap;
+    flex-shrink: 0;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+
+.grammar-explain-root p.flex.items-center.gap-2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.5rem;
+    min-width: 0;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+
+.grammar-explain-root p.flex.items-center.gap-2 > span:first-child {
+    flex-shrink: 0;
+}
+
+.grammar-explain-root p.flex.items-center.gap-2 > span.font-bold:not(:first-child) {
+    white-space: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Flip Card - Chunk (Sentence Building) */
+.flip-card-chunk,
+.flip-card-voc {
+    perspective: 1000px;
+    min-height: 70px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.flip-card-voc {
+    min-height: 105px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    padding: 12px 20px 12px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.flip-card-front {
+    background: white;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+/* Vocabulary / Sentence Building 表側: .flip-card-front の justify-content:center が row でも残るため上書き（横は左詰め・縦は中央） */
+.flip-card-voc .flip-card-front,
+.flip-card-chunk-voc .flip-card-front {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 14px 0 16px;
+    gap: 10px;
+}
+
+.flip-card-back {
+    background: var(--kepty-light-green);
+    border: 1px solid #d1fae5;
+    transform: rotateY(180deg);
+}
+
+/* Pronunciation 確認テスト一覧: Grid で行の高さを min-height まで伸ばし、短文はセル内で縦中央（flex 1行では行ボックスが低く余白が下に溜まる問題を回避） */
+.kepty-pron-exam-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-content: stretch;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 12px 0 16px;
+    min-height: 76px;
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.kepty-pron-exam-card--single {
+    align-items: center;
+}
+
+/* 長文: 行の高さは本文に合わせ、左右は上端で先頭行に揃える */
+.kepty-pron-exam-card--stacked {
+    align-items: start;
+    padding-top: 1.125rem;
+    padding-bottom: 0.625rem;
+}
+
+.kepty-pron-exam-card__lead {
+    min-width: 0;
+}
+
+.kepty-pron-exam-card__text {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+/* Kepty Card (Generic centered card) */
+.kepty-card {
+    background: white;
+    border-radius: 40px;
+    padding: 24px 24px 40px 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    border: 1px solid #f1f5f9;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+/* Card Inner Title */
+.card-inner-title {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--kepty-orange) !important;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+/* ============================================
+   8. QUIZ COMPONENTS
+   ============================================ */
+
+/* Quiz Badge (Correct/Incorrect Indicator) */
+.quiz-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    z-index: 50;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-badge.correct {
+    background-color: #10b981;
+    display: flex;
+}
+
+.quiz-badge.incorrect {
+    background-color: #ef4444;
+    display: flex;
+}
+
+/* Quiz Option Button */
+.quiz-option-btn {
+    position: relative;
+    background: white;
+    border: 2px solid #f1f5f9;
+    transition: all 0.2s;
+    text-align: left;
+    padding: 16px;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 14px;
+    width: 100%;
+    display: block;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.quiz-option-btn:active {
+    transform: scale(0.98) translateY(2px);
+}
+
+/* ============================================
+   9. PROGRESS INDICATORS
+   ============================================ */
+.progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    border: 1.5px solid #e2e8f0;
+    background: white;
+    transition: 0.3s;
+}
+
+.progress-dot.filled {
+    background: var(--kepty-orange);
+    border-color: var(--kepty-orange);
+}
+
+/* ============================================
+   10. FOOTER NAVIGATION
+   ============================================ */
+.portal-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 12px 0;
+    z-index: 100;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.03);
+    scrollbar-width: none;
+}
+
+.footer-indicator {
+    position: fixed;
+    bottom: 22px;
+    right: 0;
+    z-index: 101;
+    background: linear-gradient(to left, white 40%, transparent);
+    color: var(--kepty-orange);
+    width: 40px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: bounce-x 1.2s infinite;
+    pointer-events: none;
+}
+
+.footer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: 0.2s;
+    flex-shrink: 0;
+    width: 75px;
+}
+
+.footer-item.active {
+    color: var(--kepty-orange);
+}
+
+.footer-item span {
+    font-size: 7.5px;
+    font-weight: 700;
+    transform: translateY(-1px);
+    margin-top: 2px;
+}
+
+/* ============================================
+   11. BUTTONS
+   ============================================ */
+
+/* Recording Buttons */
+.exam-mic-btn {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #e2e8f0;
+    color: #94a3b8;
+    background: #f8fafc;
+    cursor: pointer;
+    position: relative;
+    z-index: 20;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+/* Topic Talk 録音状態（旧 .tt-mic-btn と同等） */
+.exam-mic-btn.recording {
+    background: #ef4444 !important;
+    border-color: #ef4444 !important;
+    color: #fff !important;
+    animation: kepty-mic-pulse 1.4s ease-in-out infinite;
+}
+
+.exam-mic-btn.saving {
+    background: #f97316 !important;
+    border-color: #f97316 !important;
+    color: #fff !important;
+}
+
+.exam-mic-btn.saved {
+    background: #22c55e !important;
+    border-color: #22c55e !important;
+    color: #fff !important;
+}
+
+@keyframes kepty-mic-pulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.45);
+    }
+    60% {
+        box-shadow: 0 0 0 14px rgba(239, 68, 68, 0);
+    }
+}
+
+.record-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--kepty-orange);
+    color: var(--kepty-orange);
+    cursor: pointer;
+    transition: 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.record-btn.recording {
+    background-color: var(--kepty-orange) !important;
+    color: white !important;
+    animation: ph-pulse 1s infinite !important;
+}
+
+/* Navigation / Action Buttons — 既定の「次へ（橙）」のみ。minimal / advance は下で個別指定 */
+.nav-icon-btn:not(.next-advance-btn):not(.nav-back-minimal):active,
+.next-btn-orange:active {
+    transform: scale(0.92) translateY(2px) !important;
+}
+
+.next-btn-orange {
+    background-color: var(--kepty-orange) !important;
+    color: white !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    transition: transform 0.1s;
+    cursor: pointer;
+    position: relative;
+    z-index: 20;
+}
+
+/* 戻る — 背景・枠・影なし */
+.nav-icon-btn.nav-back-minimal {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #94a3b8 !important;
+    transition: transform 0.14s ease-out;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-icon-btn.nav-back-minimal .lucide {
+    stroke: #94a3b8;
+}
+
+.nav-icon-btn.nav-back-minimal:active {
+    transform: translateY(4px) scale(0.94) !important;
+}
+
+/* Topic Talk / Sentence Building / Speaking — advance (no ring; icon = brand orange; double chevron) */
+.nav-icon-btn.next-advance-btn {
+    background-color: #ffffff !important;
+    color: var(--kepty-orange) !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    padding: 1.125rem !important;
+    min-width: 3.75rem;
+    min-height: 3.75rem;
+    transition: transform 0.14s ease-out, box-shadow 0.14s ease-out;
+    cursor: pointer;
+    position: relative;
+    z-index: 20;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.nav-icon-btn.next-advance-btn .lucide {
+    stroke: var(--kepty-orange);
+}
+
+.nav-icon-btn.next-advance-btn:active {
+    transform: translateY(5px) scale(0.94) !important;
+}
+
+/* Restart Link */
+.restart-link {
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--kepty-orange);
+    padding-bottom: 2px;
+    cursor: pointer;
+    transition: all 0.1s;
+    display: inline-block;
+}
+
+/* ============================================
+   12. SPEAKING FORM COMPONENTS
+   ============================================ */
+.sp-rule-box {
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    text-align: left;
+    border: 1px solid #e2e8f0;
+}
+
+.sp-rule-badge {
+    background: #475569;
+    color: white;
+    font-size: 9px;
+    font-weight: 900;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.sp-rule-text {
+    color: #1e293b;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.6;
+}
+
+/* ============================================
+   13. REVIEW / RESULTS
+   ============================================ */
+.review-item {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 12px;
+}
+
+.review-item .q {
+    font-weight: 900;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+.review-item .a {
+    font-weight: 600;
+}
+
+/* ============================================
+   14. MODAL
+   ============================================ */
+#detail-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 3000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 24px;
+    padding: 24px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   15. ANIMATIONS
+   ============================================ */
+
+/* Footer Bounce Animation */
+@keyframes bounce-x {
+    0%, 100% {
+        transform: translateX(0);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateX(-5px);
+        opacity: 1;
+    }
+}
+
+/* Recording Pulse Animation */
+@keyframes ph-pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 10px rgba(206, 74, 34, 0.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Voice Wave Animation */
+@keyframes wave {
+    0%, 100% {
+        height: 5px;
+    }
+    50% {
+        height: 25px;
+    }
+}
+
+/* ============================================
+   15b. EXAM NAV (戻る / 中央 / 次へ) — 左右ボタン幅が違っても中央を幾何中心に */
+.exam-nav-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.exam-nav-cell--left {
+    display: flex;
+    justify-content: flex-end;
+    min-width: 0;
+}
+
+.exam-nav-cell--center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.exam-nav-cell--right {
+    display: flex;
+    justify-content: flex-start;
+    min-width: 0;
+}
+
+/* 矢印間に置く波形は行内なので上下マージンなし */
+.exam-nav-cell--center .voice-wave {
+    margin: 0;
+}
+
+/* ============================================
+   16. VOICE WAVE COMPONENT
+   ============================================ */
+.voice-wave {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 30px;
+    margin: 20px 0;
+}
+
+.wave-bar {
+    width: 3px;
+    height: 5px;
+    background: linear-gradient(to top, var(--kepty-orange), #FAC3B1);
+    border-radius: 10px;
+    animation: wave 1.2s infinite ease-in-out;
+}
+
+.wave-bar:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.wave-bar:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.wave-bar:nth-child(4) {
+    animation-delay: 0.15s;
+}
+
+.wave-bar:nth-child(5) {
+    animation-delay: 0.3s;
+}
+
+/* ============================================
+   17. JUDGMENT / FEEDBACK LABELS
+   ============================================ */
+.good-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 900;
+    font-size: 2.2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    z-index: 50;
+    color: #16a34a;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+}
+
+.good-label.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* ============================================
+   18. UTILITY CLASSES
+   ============================================ */
+
+/* Hide Scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+:root { --kepty-premium-orange: #CE4A22; }
+
+.menu-pill-trigger {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5500;
+    cursor: pointer;
+    transition: transform 0.2s;
+    color: #CE4A22;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    font-family: inherit;
+}
+.menu-pill-trigger:active { transform: scale(0.9); }
+
+/* 画像のデザインを再現したアイコン */
+.pill-icon { width: 28px; display: flex; flex-direction: column; gap: 4px; }
+.pill-line { display: flex; align-items: center; gap: 3px; height: 2.5px; }
+.pill-line .line { height: 2.5px; background: white; border-radius: 10px; flex-grow: 1; }
+.pill-line .dot { width: 3px; height: 3px; background: white; border-radius: 50%; }
+.pill-line.top .line { width: 18px; }
+.pill-line.bot .line { width: 18px; order: -1; } /* ドットを右側に */
+
+.menu-item-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    border-radius: 18px;
+    transition: 0.2s;
+}
+.menu-item-link:hover { background: #f8fafc; }
+.menu-icon-box {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: #f1f5f9; display: flex; align-items: center; justify-content: center; color: #64748b;
+}
+.menu-icon-box.active-bg { background: var(--kepty-premium-orange); color: white; }
+#side-menu-content.open { right: 0; }
+
+/** kepty-menu-production.js が html に付与する本番用: 学習管理メニュー行（.kepty-nav-learning-mgmt）だけ非表示 */
+html.kepty-hide-learning-mgmt-menu .kepty-nav-learning-mgmt {
+    display: none !important;
+}
