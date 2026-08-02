@@ -18,3 +18,15 @@
 
 ## データ
 - `data/portal-data.json` … 教材一式（本番 GAS からの読み取りエクスポート。音声 URL は除去済み）
+
+## お問い合わせメール（Web3Forms）
+
+Lite は youth サイトと同じ Web3Forms access key を使います。
+
+ただし Web3Forms は **github.io などの無料サブドメインからの送信を制限**することがあります（公式トラブルシュート）。  
+成功表示が出てもメールが届かない場合は次を確認してください。
+
+1. 迷惑メールフォルダ
+2. Web3Forms ダッシュボードの送信ログ
+3. `kepty19.github.io` の許可申請、または **カスタムドメイン** の追加
+4. Lite 専用の新しい access key を発行して `kepty-lite.js` の `WEB3FORMS_ACCESS_KEY` を差し替え

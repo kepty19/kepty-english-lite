@@ -1,14 +1,15 @@
 /**
  * Kepty English Lite — contact modal + upgrade prompts
  *
- * Design notes (avoid regressions):
- * - Modal show/hide is owned ONLY by lite-contact CSS classes (no Tailwind hidden/flex).
- * - Close must stopPropagation + delay hide to prevent click-through reopening.
- * - Open triggers use ONE path (delegation). Do not also put inline openContact onclicks.
- * - training.html body is text-center; modal forces text-align:left !important.
+ * Open/close: use direct element handlers (not document capture).
+ * Close uses a short guard so the same click cannot reopen via an opener underneath.
+ * Fonts: inherit app fonts (Open Sans / Noto Sans JP) — do not load EB Garamond here.
+ * Mail: Web3Forms (same as youth). github.io may be blocked by Web3Forms; surface API errors.
  */
 (function (global) {
+    /** Same inbox path as youth; swap if Web3Forms blocks github.io for this key. */
     var WEB3FORMS_ACCESS_KEY = 'bcb8a667-538a-4b4c-a0a6-f6f88f95aa08';
+    var WEB3FORMS_URL = 'https://api.web3forms.com/submit';
     var MSG_SHADOWING =
         '現在ご活用頂いている無料版では、音源の再生ができません。機能をフルに活用されたい場合は、有料版のお申し込みをご実施ください。';
     var MSG_SHARE =
@@ -104,13 +105,26 @@
         return true;
     }
 
-    function closeContact() {
+    function closeContact(ev) {
+        if (ev && typeof ev.preventDefault === 'function') {
+            ev.preventDefault();
+            ev.stopPropagation();
+        }
         var modal = $('lite-contact-modal');
-        if (!modal || !isOpen(modal)) return;
-        // Prevent the same click from hitting an opener underneath.
-        closingGuardUntil = Date.now() + 400;
+        if (!modal) return;
+        if (!isOpen(modal)) {
+            // Force-hide even if class state drifted.
+            setModalOpen(false);
+            return;
+        }
+        closingGuardUntil = Date.now() + 500;
+        // Kill pointer events first so the same click cannot hit openers underneath.
+        modal.style.pointerEvents = 'none';
         setModalOpen(false);
         pendingReason = '';
+        window.setTimeout(function () {
+            if (modal) modal.style.pointerEvents = '';
+        }, 500);
         if (lastFocused && typeof lastFocused.focus === 'function') {
             try {
                 lastFocused.focus();
@@ -123,40 +137,45 @@
         return false;
     }
 
+    function onOpenClick(ev) {
+        if (ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+        }
+        if (typeof global.toggleSideMenu === 'function') {
+            try {
+                global.toggleSideMenu(false);
+            } catch (e) {}
+        }
+        openContact('');
+    }
+
+    function bindDirect(el, type, fn) {
+        if (!el) return;
+        el.addEventListener(type, fn);
+    }
+
     function bindContactUi() {
         if (bound) return;
         bound = true;
 
         setModalOpen(false);
 
-        document.addEventListener(
-            'click',
-            function (event) {
-                var t = event.target;
-                if (!t || !t.closest) return;
+        // Openers
+        var openers = document.querySelectorAll('.lite-contact-open');
+        for (var i = 0; i < openers.length; i++) {
+            bindDirect(openers[i], 'click', onOpenClick);
+        }
 
-                var openEl = t.closest('.lite-contact-open');
-                if (openEl) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    openContact('');
-                    return;
-                }
-
-                var closeEl = t.closest('[data-lite-contact-close]');
-                if (closeEl) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    closeContact();
-                }
-            },
-            true
-        ); // capture: handle before other handlers
+        // Closers (X, backdrop, success "閉じる") — direct bind, most reliable
+        var closers = document.querySelectorAll('[data-lite-contact-close]');
+        for (var j = 0; j < closers.length; j++) {
+            bindDirect(closers[j], 'click', closeContact);
+        }
 
         document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape' && isOpen($('lite-contact-modal'))) {
-                event.preventDefault();
-                closeContact();
+                closeContact(event);
             }
         });
 
@@ -166,6 +185,14 @@
         form.addEventListener('submit', function (event) {
             event.preventDefault();
             setError(null);
+
+            // Honeypot (Web3Forms spam protection)
+            var bot = form.querySelector('[name="botcheck"]');
+            if (bot && bot.checked) {
+                showContactSuccessState();
+                return;
+            }
+
             var data = new FormData(form);
             var userName = String(data.get('userName') || '').trim();
             var userEmail = String(data.get('userEmail') || '').trim();
@@ -175,19 +202,27 @@
                 return;
             }
 
+            var pageUrl = '';
+            try {
+                pageUrl = String(global.location && global.location.href ? global.location.href : '');
+            } catch (eLoc) {}
+
             var fullMessage =
                 (pendingReason ? '【Lite制限】\n' + pendingReason + '\n\n' : '') +
                 'お名前: ' +
                 userName +
                 '\nメールアドレス: ' +
                 userEmail +
+                '\nページ: ' +
+                pageUrl +
                 '\n\nお問い合わせ内容:\n' +
                 userMessage;
 
+            // Match youth payload shape as closely as possible.
             var payload = new FormData();
             payload.append('access_key', WEB3FORMS_ACCESS_KEY);
-            payload.append('subject', '【Kepty English Lite】有料版のお申し込み・お問い合わせ');
-            payload.append('from_name', userName);
+            payload.append('subject', '【Kepty English Lite】有料版のご相談・申し込み');
+            payload.append('from_name', 'Kepty English Lite');
             payload.append('name', userName);
             payload.append('email', userEmail);
             payload.append('replyto', userEmail);
@@ -199,10 +234,16 @@
                 submitBtn.textContent = 'Sending...';
             }
 
-            fetch('https://api.web3forms.com/submit', { method: 'POST', body: payload })
+            fetch(WEB3FORMS_URL, { method: 'POST', body: payload })
                 .then(function (response) {
-                    return response.json().then(function (result) {
-                        return { ok: response.ok, result: result };
+                    return response.text().then(function (text) {
+                        var result = null;
+                        try {
+                            result = text ? JSON.parse(text) : null;
+                        } catch (eParse) {
+                            result = { success: false, message: text || 'Invalid JSON response' };
+                        }
+                        return { ok: response.ok, status: response.status, result: result };
                     });
                 })
                 .then(function (res) {
@@ -211,9 +252,12 @@
                         showContactSuccessState();
                         return;
                     }
+                    var apiMsg =
+                        (res.result && (res.result.message || res.result.error)) ||
+                        ('送信に失敗しました（HTTP ' + res.status + '）');
                     setError(
-                        (res.result && res.result.message) ||
-                            '送信に失敗しました。しばらくしてから再度お試しください。'
+                        apiMsg +
+                            ' ※GitHub Pages（github.io）は Web3Forms 側で制限されることがあります。届かない場合は contact@kepty.co へ直接メールください。'
                     );
                 })
                 .catch(function () {

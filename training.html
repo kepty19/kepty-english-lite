@@ -605,9 +605,9 @@
 
 <!-- Kepty English Lite: contact / upgrade modal -->
 <div id="lite-contact-modal" hidden aria-hidden="true">
-  <div class="lite-contact-backdrop" data-lite-contact-close></div>
+  <div class="lite-contact-backdrop" data-lite-contact-close tabindex="-1"></div>
   <div class="lite-contact-dialog" role="dialog" aria-modal="true" aria-labelledby="lite-contact-title">
-    <button type="button" class="lite-contact-close" data-lite-contact-close aria-label="閉じる"><span aria-hidden="true">&times;</span></button>
+    <button type="button" class="lite-contact-close" data-lite-contact-close aria-label="閉じる" onclick="if(window.KeptyLite){KeptyLite.closeContact(event);} return false;"><span aria-hidden="true">&times;</span></button>
 
     <div id="lite-contact-form-panel">
       <h2 class="lite-contact-title" id="lite-contact-title">Contact Us</h2>
@@ -627,6 +627,7 @@
       </div>
       <form id="lite-contact-form" class="lite-contact-form" novalidate>
         <p id="lite-contact-error" hidden></p>
+        <input type="checkbox" name="botcheck" class="lite-contact-botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="lite-contact-field">
           <label for="lite-contact-name">お名前 / Name <span class="lite-contact-required">*</span></label>
           <input id="lite-contact-name" name="userName" type="text" required autocomplete="name" placeholder="例：山田 太郎">
@@ -650,8 +651,8 @@
         </svg>
       </div>
       <h3 class="lite-contact-success-title">送信が完了しました</h3>
-      <p class="lite-contact-success-text">お問い合わせありがとうございます。ご入力いただいた内容を確認の上、担当者よりご連絡いたします。</p>
-      <button type="button" class="lite-contact-submit-secondary" data-lite-contact-close>閉じる</button>
+      <p class="lite-contact-success-text">お問い合わせありがとうございます。ご入力いただいた内容を確認の上、担当者よりご連絡いたします。<br>メールが届かない場合は、迷惑メールフォルダもご確認ください。それでも無い場合は contact@kepty.co へご連絡ください。</p>
+      <button type="button" class="lite-contact-submit-secondary" data-lite-contact-close onclick="if(window.KeptyLite){KeptyLite.closeContact(event);} return false;">閉じる</button>
     </div>
   </div>
 </div>

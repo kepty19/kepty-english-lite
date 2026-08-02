@@ -1,15 +1,12 @@
-/* Kepty English Lite contact modal — self-contained (no Tailwind). Matches youth contact UI tokens. */
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&family=Noto+Serif+JP:wght@500;600;700&display=swap');
-
+/* Kepty English Lite contact modal — app fonts (Open Sans / Noto Sans JP), no serif swap */
 #lite-contact-modal {
-  --lc-ink: #111111;
-  --lc-ink-soft: #3a3a3a;
-  --lc-muted: #6b6b6b;
-  --lc-accent: #b56a3f;
-  --lc-accent-deep: #8f4f2c;
-  --lc-accent-glow: rgba(143, 79, 44, 0.14);
-  --lc-font-display: "EB Garamond", "Noto Serif JP", serif;
-  --lc-font-ui: "EB Garamond", "Noto Serif JP", serif;
+  --lc-ink: #0f172a;
+  --lc-ink-soft: #334155;
+  --lc-muted: #64748b;
+  --lc-accent: #CE4A22;
+  --lc-accent-deep: #b53f1d;
+  --lc-accent-glow: rgba(206, 74, 34, 0.18);
+  --lc-font: 'Open Sans', 'Noto Sans JP', sans-serif;
 
   position: fixed;
   inset: 0;
@@ -19,7 +16,7 @@
   padding: 1.25rem;
   text-align: left !important;
   color: var(--lc-ink);
-  font-family: var(--lc-font-ui);
+  font-family: var(--lc-font);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -41,9 +38,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: rgba(10, 10, 10, 0.62);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  background: rgba(15, 23, 42, 0.55);
 }
 
 #lite-contact-modal .lite-contact-dialog {
@@ -54,25 +49,26 @@
   overflow: auto;
   background: #fff;
   border-radius: 1.35rem;
-  border: 1px solid rgba(17, 17, 17, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.08);
   box-shadow:
-    0 1px 2px rgba(17, 17, 17, 0.04),
-    0 24px 60px rgba(17, 17, 17, 0.22);
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 24px 60px rgba(15, 23, 42, 0.22);
   padding: 2rem 1.75rem 1.85rem;
   color: var(--lc-ink);
   text-align: left !important;
+  font-family: var(--lc-font);
 }
 
 #lite-contact-modal .lite-contact-close {
   position: absolute;
   top: 0.85rem;
   right: 0.85rem;
-  z-index: 3;
+  z-index: 5;
   width: 2.25rem;
   height: 2.25rem;
   border: none;
   border-radius: 999px;
-  background: rgba(17, 17, 17, 0.05);
+  background: rgba(15, 23, 42, 0.05);
   color: var(--lc-muted);
   font-size: 1.45rem;
   line-height: 1;
@@ -81,10 +77,11 @@
   align-items: center;
   justify-content: center;
   padding: 0;
+  pointer-events: auto;
 }
 
 #lite-contact-modal .lite-contact-close:hover {
-  background: rgba(17, 17, 17, 0.09);
+  background: rgba(15, 23, 42, 0.09);
   color: var(--lc-ink);
 }
 
@@ -95,48 +92,49 @@
   display: none !important;
 }
 
-/* Youth .contact-title */
 #lite-contact-modal .lite-contact-title {
-  font-family: var(--lc-font-display);
-  font-size: 1.55rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  margin: 0 2.25rem 1.35rem 0;
+  font-family: var(--lc-font);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 2.25rem 1.1rem 0;
   color: var(--lc-ink);
   text-align: left !important;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 #lite-contact-modal .lite-contact-intro {
-  margin: 0 0 1.25rem;
+  margin: 0 0 1.15rem;
   text-align: left !important;
 }
 
 #lite-contact-modal .lite-contact-intro p {
   margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.75;
+  font-size: 0.875rem;
+  line-height: 1.7;
   color: var(--lc-muted);
   text-align: left !important;
+  font-family: var(--lc-font);
 }
 
 #lite-contact-modal .lite-contact-intro p + p {
-  margin-top: 0.55rem;
+  margin-top: 0.5rem;
 }
 
 #lite-contact-modal .lite-contact-intro ul {
-  margin: 0.7rem 0 0;
+  margin: 0.65rem 0 0;
   padding-left: 1.15rem;
   list-style: disc;
   text-align: left !important;
 }
 
 #lite-contact-modal .lite-contact-intro li {
-  font-size: 0.9rem;
-  line-height: 1.7;
+  font-size: 0.875rem;
+  line-height: 1.65;
   color: var(--lc-muted);
   text-align: left !important;
   margin: 0.12rem 0;
+  font-family: var(--lc-font);
 }
 
 #lite-contact-modal #lite-contact-reason-wrap {
@@ -153,6 +151,7 @@
   border-radius: 0.85rem;
   padding: 0.75rem 0.9rem;
   text-align: left !important;
+  font-family: var(--lc-font);
 }
 
 #lite-contact-modal .lite-contact-form {
@@ -163,14 +162,15 @@
 
 #lite-contact-modal .lite-contact-field label {
   display: block;
-  margin-bottom: 0.45rem;
-  padding-left: 0.15rem;
+  margin-bottom: 0.4rem;
+  padding-left: 0.1rem;
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--lc-muted);
   text-align: left !important;
+  font-family: var(--lc-font);
 }
 
 #lite-contact-modal .lite-contact-required {
@@ -183,11 +183,11 @@
 #lite-contact-modal .lite-contact-field textarea {
   display: block;
   width: 100%;
-  border: 1px solid rgba(17, 17, 17, 0.12);
+  border: 1px solid rgba(15, 23, 42, 0.12);
   border-radius: 0.85rem;
-  background: #faf8f6;
+  background: #f8fafc;
   color: var(--lc-ink);
-  font: inherit;
+  font-family: var(--lc-font);
   font-size: 0.92rem;
   line-height: 1.6;
   padding: 0.85rem 1rem;
@@ -196,7 +196,7 @@
 
 #lite-contact-modal .lite-contact-field input::placeholder,
 #lite-contact-modal .lite-contact-field textarea::placeholder {
-  color: #9a9a9a;
+  color: #94a3b8;
 }
 
 #lite-contact-modal .lite-contact-field input:focus,
@@ -212,6 +212,12 @@
   min-height: 7.5rem;
 }
 
+#lite-contact-modal .lite-contact-botcheck {
+  display: none !important;
+  position: absolute;
+  left: -9999px;
+}
+
 #lite-contact-modal #lite-contact-error {
   font-size: 0.86rem;
   font-weight: 700;
@@ -222,6 +228,7 @@
   padding: 0.75rem 0.9rem;
   text-align: left !important;
   margin: 0;
+  font-family: var(--lc-font);
 }
 
 #lite-contact-modal #lite-contact-submit {
@@ -231,15 +238,14 @@
   border-radius: 0.85rem;
   background: var(--lc-accent);
   color: #fff;
-  font-family: var(--lc-font-ui);
+  font-family: var(--lc-font);
   font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0.95rem 1rem;
   cursor: pointer;
   text-align: center !important;
-  box-shadow: 0 8px 20px rgba(143, 79, 44, 0.22);
 }
 
 #lite-contact-modal #lite-contact-submit:hover:not(:disabled) {
@@ -274,9 +280,9 @@
 }
 
 #lite-contact-modal .lite-contact-success-title {
-  font-family: var(--lc-font-display);
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-family: var(--lc-font);
+  font-size: 1.15rem;
+  font-weight: 800;
   margin: 0 0 0.55rem;
   color: var(--lc-ink);
   text-align: center !important;
@@ -289,6 +295,7 @@
   max-width: 22rem;
   margin: 0 auto;
   text-align: center !important;
+  font-family: var(--lc-font);
 }
 
 #lite-contact-modal .lite-contact-submit-secondary {
@@ -297,12 +304,12 @@
   border-radius: 0.85rem;
   background: transparent;
   color: var(--lc-accent-deep);
-  border: 1px solid rgba(143, 79, 44, 0.28);
+  border: 1px solid rgba(206, 74, 34, 0.28);
   box-shadow: none;
-  font-family: var(--lc-font-ui);
+  font-family: var(--lc-font);
   font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0.95rem 1rem;
   cursor: pointer;
@@ -310,7 +317,7 @@
 }
 
 #lite-contact-modal .lite-contact-submit-secondary:hover {
-  background: rgba(143, 79, 44, 0.06);
+  background: rgba(206, 74, 34, 0.06);
 }
 
 body.lite-contact-open {
