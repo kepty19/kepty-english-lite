@@ -12,6 +12,7 @@
 <script src="content/data/pronunciation-local-translation.js"></script>
 <script src="content/data/training-guides-ja.js" charset="utf-8"></script>
 <script src="kepty-lite.js"></script>
+<link rel="stylesheet" href="kepty-lite-contact.css">
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 <!-- Application Styles -->
@@ -606,15 +607,13 @@
 <!-- Kepty English Lite: contact / upgrade modal -->
 <div id="lite-contact-modal" class="fixed inset-0 z-[60000] items-center justify-center p-4 hidden" style="display:none" hidden aria-hidden="true">
   <div class="absolute inset-0 bg-slate-900/50" data-lite-contact-close></div>
-  <div class="relative w-full max-w-md rounded-2xl bg-white shadow-xl border border-slate-100 overflow-hidden">
-    <div class="flex items-center justify-between px-5 pt-5 pb-2">
-      <h2 class="text-base font-black text-slate-900">Contact us</h2>
-      <button type="button" class="w-8 h-8 rounded-full bg-slate-50 text-slate-400 text-lg leading-none" data-lite-contact-close aria-label="閉じる">×</button>
-    </div>
-    <div class="px-5 pb-3">
-      <p class="text-xs text-slate-600 leading-relaxed">このアプリがあるだけでは十分ではありません。正しいやり方で取り組むことが大切です。</p>
-      <p class="text-xs text-slate-600 leading-relaxed mt-2">たとえば次のようなときは、お気軽にご相談・お申し込みください。</p>
-      <ul class="mt-2 text-xs text-slate-600 leading-relaxed space-y-1 list-disc pl-4">
+  <div class="lite-contact-dialog relative z-[1]">
+    <button type="button" class="lite-contact-close" data-lite-contact-close aria-label="閉じる">×</button>
+    <h2 class="lite-contact-title" id="lite-contact-title">Contact Us</h2>
+    <div class="lite-contact-intro">
+      <p>このアプリがあるだけでは十分ではありません。正しいやり方で取り組むことが大切です。</p>
+      <p>たとえば次のようなときは、お気軽にご相談・お申し込みください。</p>
+      <ul>
         <li>正しいトレーニングのやり方を知りたい</li>
         <li>効果の出やすい進め方を知りたい</li>
         <li>もっと効率よく実施する方法を知りたい</li>
@@ -622,30 +621,30 @@
         <li>有料版に興味がある／申し込んでみたい</li>
       </ul>
     </div>
-    <div id="lite-contact-reason-wrap" class="px-5 pb-2" hidden>
-      <p id="lite-contact-reason" class="text-xs text-slate-600 leading-relaxed bg-orange-50 border border-orange-100 rounded-xl p-3"></p>
+    <div id="lite-contact-reason-wrap" hidden>
+      <p id="lite-contact-reason"></p>
     </div>
-    <div id="lite-contact-form-panel" class="px-5 pb-5">
-      <form id="lite-contact-form" class="space-y-3">
-        <div>
-          <label class="block text-[11px] font-bold text-slate-500 mb-1" for="lite-contact-name">お名前</label>
-          <input id="lite-contact-name" name="userName" required class="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm" autocomplete="name">
+    <div id="lite-contact-form-panel">
+      <form id="lite-contact-form" class="lite-contact-form" novalidate>
+        <p id="lite-contact-error" hidden></p>
+        <div class="lite-contact-field">
+          <label for="lite-contact-name">お名前 / Name <span class="lite-contact-required">*</span></label>
+          <input id="lite-contact-name" name="userName" type="text" required autocomplete="name" placeholder="例：山田 太郎">
         </div>
-        <div>
-          <label class="block text-[11px] font-bold text-slate-500 mb-1" for="lite-contact-email">メールアドレス</label>
-          <input id="lite-contact-email" name="userEmail" type="email" required class="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm" autocomplete="email">
+        <div class="lite-contact-field">
+          <label for="lite-contact-email">メールアドレス / Email <span class="lite-contact-required">*</span></label>
+          <input id="lite-contact-email" name="userEmail" type="email" required autocomplete="email" placeholder="example@kepty.co">
         </div>
-        <div>
-          <label class="block text-[11px] font-bold text-slate-500 mb-1" for="lite-contact-message">お問い合わせ内容</label>
-          <textarea id="lite-contact-message" name="userMessage" rows="4" required class="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm"></textarea>
+        <div class="lite-contact-field">
+          <label for="lite-contact-message">お問い合わせ内容 / Message <span class="lite-contact-required">*</span></label>
+          <textarea id="lite-contact-message" name="userMessage" rows="4" required placeholder="ご不明点や受講相談など、些細なことでもお気軽にお問い合わせください！"></textarea>
         </div>
-        <p id="lite-contact-error" class="text-xs text-red-600" hidden></p>
-        <button id="lite-contact-submit" type="submit" class="w-full rounded-xl py-3 text-white text-sm font-bold" style="background:#CE4A22">Send Message</button>
+        <button id="lite-contact-submit" type="submit">Send Message</button>
       </form>
     </div>
-    <div id="lite-contact-success" class="px-5 pb-6" hidden>
-      <p class="text-sm text-slate-700 leading-relaxed">送信ありがとうございました。担当よりご連絡いたします。</p>
-      <button type="button" class="mt-4 w-full rounded-xl py-3 bg-slate-100 text-sm font-bold text-slate-700" data-lite-contact-close>閉じる</button>
+    <div id="lite-contact-success" hidden>
+      <p>送信が完了しました。担当よりご連絡いたします。</p>
+      <button type="button" class="lite-contact-success-close" data-lite-contact-close>閉じる</button>
     </div>
   </div>
 </div>

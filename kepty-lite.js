@@ -138,7 +138,7 @@
             var userEmail = String(data.get('userEmail') || '').trim();
             var userMessage = String(data.get('userMessage') || '').trim();
             if (!userName || !userEmail || !userMessage) {
-                setError('必須項目をすべて入力してください。');
+                setError('すべて入力してください');
                 return;
             }
 
