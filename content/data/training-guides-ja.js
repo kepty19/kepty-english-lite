@@ -216,16 +216,16 @@
         chunk: [{ src: 'content/videos/training-guides/Sentence Building.MP4', label: TRAINING_GUIDE_VIDEO_LABEL }]
     };
 
-    /** ヘッダー直下の3行説明（getTrainingMeta） */
+    /** ヘッダー直下の説明（getTrainingMeta）※Lite: 教科ラベル行なし／小学5〜6年生向け */
     var TRAINING_META = {
-        vocabulary: { description: '【知識データベース】の強化\n・英語の理解スピードと表現の幅が劇的に向上します。\n・語彙力と反応速度を鍛え、英語力の土台を固めます。' },
-        pronunciation: { skillIcon: 'audio-lines', skillText: 'Phonetic Accuracy', description: '【知識データベース・音声化】の強化\n・リスニング力と相手に一度で伝わる発音を身につけます。\n・音のメカニズムを理解し、カタカナ英語の脱却を目指します。' },
-        grammar: { skillIcon: 'book-open-check', skillText: 'Structural Clarity', description: '【知識データベース】の強化\n・文の組み立てと意味の繋がりが明確になります。\n・文法構造を定着させ、正確な会話の基盤を作ります。' },
-        shadowing: { skillIcon: 'headphones', skillText: 'Listening Fluency', description: '【音声知覚】の強化\n・英語のリズムや強弱、イントネーションが身につきます。\n・英語特有の音声変化を理解し、ネイティブの会話を聞き取る力を養います。' },
-        reading: { skillIcon: 'book-marked', skillText: 'Logical Reading', description: '【意味理解】の強化\n・英語の解釈および理解力を鍛えます。\n・会話の要点や詳細を素早く把握できるようになります。' },
-        topicTalk: { skillIcon: 'message-circle', skillText: 'Opinion Delivery', description: '【概念化】の強化\n・自分の意見を論理的に英語で述べる力を鍛えます。\n・テーマに対する思考と表現のバリエーションを広げます。' },
-        speaking: { skillIcon: 'message-square', skillText: 'Speaking Framework', description: '【文章化】の強化\n・日本語的な表現を脱却し、英語として自然な形で話す力を身につけます。\n・スピーキング時のフォームを改善しながら、実践的な会話力を高めます。' },
-        chunk: { skillIcon: 'layers', skillText: 'Response Speed', description: '【文章化】の強化\n・瞬時に文を組み立てる反応速度を鍛えます。\n・文章単位で文を組み立て、スムーズな発話へ繋げます。' }
+        vocabulary: { description: '・知らない英単語がわかるようになって、英語が読みやすくなります。\n・使える言葉が増えて、自分の気持ちを英語で言いやすくなります。' },
+        pronunciation: { skillIcon: 'audio-lines', skillText: 'Phonetic Accuracy', description: '・英語の音の出し方がわかって、相手に聞きとってもらいやすくなります。\n・カタカナ読みから一歩進んで、本物の英語の音に近づけます。' },
+        grammar: { skillIcon: 'book-open-check', skillText: 'Structural Clarity', description: '・英語の文の作り方がわかって、意味がはっきり読めるようになります。\n・正しい順番で文を組み立てて、ちゃんと通じる話し方が身につきます。' },
+        shadowing: { skillIcon: 'headphones', skillText: 'Listening Fluency', description: '・英語のリズムや強弱に慣れて、聞き取りやすくなります。\n・つながって聞こえる音の変化がわかって、ネイティブの会話についていきやすくなります。' },
+        reading: { skillIcon: 'book-marked', skillText: 'Logical Reading', description: '・英語の文章の意味を、しっかりつかめるようになります。\n・話の大事なところや細かいところを、早く見つけられるようになります。' },
+        topicTalk: { skillIcon: 'message-circle', skillText: 'Opinion Delivery', description: '・自分の考えを、すじの通った英語で言えるようになります。\n・いろいろなテーマについて、言い方のバリエーションが増えます。' },
+        speaking: { skillIcon: 'message-square', skillText: 'Speaking Framework', description: '・日本語っぽい言い方をやめて、自然な英語で話せるようになります。\n・話し方の型を練習して、実際の会話で使いやすくなります。' },
+        chunk: { skillIcon: 'layers', skillText: 'Response Speed', description: '・文をすばやく組み立てる練習で、返事が速くなります。\n・かたまりで覚えることで、スムーズに話せるようになります。' }
     };
 
     var MODE_LABELS = {
