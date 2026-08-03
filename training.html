@@ -3731,8 +3731,9 @@ function renderContent() {
       ${hasHighlights ? `<button onclick="shadowingMode='sound'; renderContent();" class="category-tab category-tab-sm ${shadowingMode==='sound'?'active':''}">Sound Change</button>` : ''}
       <button onclick="shadowingMode='japanese'; renderContent();" class="category-tab category-tab-sm ${shadowingMode==='japanese'?'active':''}">Japanese</button>
     </div>
-    <button id="sh-play-btn" onclick="playAudio('${item.lesson}_${item.theme}', this)" class="w-8 h-8 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center shadow-sm active:scale-90 transition-all flex-shrink-0"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
+    <button id="sh-play-btn" onclick="playAudio('${item.lesson}_${item.theme}', this)" class="w-8 h-8 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center shadow-sm active:scale-90 transition-all flex-shrink-0" aria-label="再生（Liteでは不可）"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
   </div>
+  ${(typeof KEPTY_LITE !== 'undefined' && KEPTY_LITE) ? `<p class="sh-lite-audio-notice">${(window.KeptyLite && window.KeptyLite.MSG_SHADOWING) ? window.KeptyLite.MSG_SHADOWING : '無料版のKepty English Liteではシャドーイングの音声再生ができません。本格的にシャドーイングを実施したい場合は、有料版をご利用ください。'}</p>` : ''}
   <div class="px-4 pt-3 pb-1">
     <div id="sh-progress-track" class="w-full h-6 flex items-center relative cursor-pointer" style="touch-action:none;">
       <div class="w-full h-[2px] bg-slate-100 relative rounded-full overflow-hidden pointer-events-none">

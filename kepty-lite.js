@@ -11,7 +11,7 @@
     var WEB3FORMS_ACCESS_KEY = 'bcb8a667-538a-4b4c-a0a6-f6f88f95aa08';
     var WEB3FORMS_URL = 'https://api.web3forms.com/submit';
     var MSG_SHADOWING =
-        'いま使っている無料版では、音源の再生ができません。もっと使いこなしたいときは、有料版にお申し込みください。';
+        '無料版のKepty English Liteではシャドーイングの音声再生ができません。本格的にシャドーイングを実施したい場合は、有料版をご利用ください。';
     var MSG_SHARE =
         'いま使っている無料版では、録音の共有ができません。もっと使いこなしたいときは、有料版にお申し込みください。';
 
@@ -132,8 +132,73 @@
         }
     }
 
+    function ensureNoticeModal() {
+        var existing = $('lite-notice-modal');
+        if (existing) return existing;
+        var wrap = document.createElement('div');
+        wrap.id = 'lite-notice-modal';
+        wrap.setAttribute('hidden', '');
+        wrap.setAttribute('aria-hidden', 'true');
+        wrap.innerHTML =
+            '<div class="lite-notice-backdrop" data-lite-notice-close tabindex="-1"></div>' +
+            '<div class="lite-notice-dialog" role="dialog" aria-modal="true" aria-labelledby="lite-notice-title">' +
+            '<p class="lite-notice-title" id="lite-notice-title">ご案内</p>' +
+            '<p class="lite-notice-text" id="lite-notice-text"></p>' +
+            '<button type="button" class="lite-notice-ok" data-lite-notice-close>OK</button>' +
+            '</div>';
+        document.body.appendChild(wrap);
+        wrap.addEventListener('click', function (ev) {
+            var t = ev.target;
+            if (t && t.getAttribute && t.getAttribute('data-lite-notice-close') !== null) {
+                closeLiteNotice(ev);
+            }
+        });
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && wrap.classList.contains('is-open')) {
+                closeLiteNotice(event);
+            }
+        });
+        return wrap;
+    }
+
+    function closeLiteNotice(ev) {
+        if (ev && typeof ev.preventDefault === 'function') {
+            ev.preventDefault();
+            ev.stopPropagation();
+        }
+        var modal = $('lite-notice-modal');
+        if (!modal) return;
+        modal.classList.remove('is-open');
+        modal.setAttribute('hidden', '');
+        modal.setAttribute('aria-hidden', 'true');
+    }
+
+    /** Shadowing play etc.: message only (no contact form). */
+    function showLiteNotice(message) {
+        var modal = ensureNoticeModal();
+        var textEl = $('lite-notice-text');
+        if (textEl) textEl.textContent = message || '';
+        modal.classList.add('is-open');
+        modal.removeAttribute('hidden');
+        modal.setAttribute('aria-hidden', 'false');
+        window.setTimeout(function () {
+            var ok = modal.querySelector('.lite-notice-ok');
+            if (ok) {
+                try {
+                    ok.focus();
+                } catch (e) {}
+            }
+        }, 30);
+        return false;
+    }
+
     function showLiteUpgrade(kind) {
-        openContact(kind === 'share' ? MSG_SHARE : MSG_SHADOWING);
+        if (kind === 'share') {
+            openContact(MSG_SHARE);
+            return false;
+        }
+        // shadowing (and default): notice only — do not open Contact Us
+        showLiteNotice(MSG_SHADOWING);
         return false;
     }
 
@@ -278,6 +343,8 @@
         openContact: openContact,
         closeContact: closeContact,
         showLiteUpgrade: showLiteUpgrade,
+        showLiteNotice: showLiteNotice,
+        closeLiteNotice: closeLiteNotice,
         MSG_SHADOWING: MSG_SHADOWING,
         MSG_SHARE: MSG_SHARE
     };
