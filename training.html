@@ -765,12 +765,22 @@ try {
 } catch (eDiagGlob) {}
 
 /** pathname 確定前後で token が変わる場合に備え、常に現在の keptyGasUserId() でキーを生成 */
+/** Lite: 教材を差し替えたらここを上げると、古い localStorage/IDB を捨てて取り直す */
+var KEPTY_LITE_PORTAL_CACHE_VER = 'g56v1';
 function keptyPortalDataCacheKey() {
     try {
         var uid = typeof keptyGasUserId === 'function' ? keptyGasUserId() : userIdForKeys;
-        return 'keptyPortalData_' + String(uid).replace(/\//g, '_');
+        var base = 'keptyPortalData_' + String(uid).replace(/\//g, '_');
+        if (typeof KEPTY_LITE !== 'undefined' && KEPTY_LITE) {
+            return base + '_' + KEPTY_LITE_PORTAL_CACHE_VER;
+        }
+        return base;
     } catch (eK) {
-        return 'keptyPortalData_' + String(userIdForKeys).replace(/\//g, '_');
+        var fallback = 'keptyPortalData_' + String(userIdForKeys).replace(/\//g, '_');
+        if (typeof KEPTY_LITE !== 'undefined' && KEPTY_LITE) {
+            return fallback + '_' + KEPTY_LITE_PORTAL_CACHE_VER;
+        }
+        return fallback;
     }
 }
 
@@ -1219,9 +1229,9 @@ function setupInitialFetch() {
         }
     }, 20000);
     _portalClientStatePromise = stateP;
-    if (_cached) {
+    /* Lite: 教材は GitHub Pages 上の JSON。localStorage キャッシュだけだと文言更新が見えないので常に再取得する */
+    if (_cached && !(typeof KEPTY_LITE !== 'undefined' && KEPTY_LITE)) {
         initialFetch = Promise.resolve(_cached);
-        /* Lite: no GAS accessCheck / background refresh */
     } else {
         var _portalFetchAbort = new AbortController();
         var _portalFetchTimer = setTimeout(function () {
