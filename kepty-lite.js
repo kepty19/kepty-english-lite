@@ -175,8 +175,8 @@
             '<p class="lite-notice-title" id="lite-notice-title">ご案内</p>' +
             '<p class="lite-notice-text" id="lite-notice-text"></p>' +
             '<div class="lite-notice-actions">' +
-            '<button type="button" class="lite-notice-ok" data-lite-notice-close>OK</button>' +
-            '<button type="button" class="lite-notice-consult" id="lite-notice-consult" hidden>ご相談する</button>' +
+            '<button type="button" class="lite-notice-ok" data-lite-notice-close>戻る</button>' +
+            '<button type="button" class="lite-notice-consult" id="lite-notice-consult" hidden>気軽に相談してみる</button>' +
             '</div>' +
             '</div>';
         document.body.appendChild(wrap);

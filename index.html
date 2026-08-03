@@ -16,11 +16,17 @@
                 radial-gradient(900px 500px at 100% 0%, rgba(15, 23, 42, 0.06), transparent 50%),
                 linear-gradient(180deg, #fff 0%, #f8fafc 100%);
         }
+        .lite-lead {
+            margin-top: 1.25rem;
+            font-size: 0.875rem;
+            line-height: 1.7;
+            color: #64748b;
+        }
         .lite-aside {
-            margin-top: 1.5rem;
+            margin-top: 1.15rem;
             display: flex;
             align-items: stretch;
-            gap: 0.85rem;
+            gap: 0.75rem;
         }
         .lite-aside-rule {
             flex-shrink: 0;
@@ -32,18 +38,17 @@
         .lite-aside p {
             margin: 0;
             font-size: 0.8125rem;
-            line-height: 1.7;
+            line-height: 1.65;
             color: #64748b;
-            letter-spacing: 0.01em;
         }
         .lite-parent {
-            margin-top: 1.75rem;
-            padding-top: 1.35rem;
+            margin-top: 1.5rem;
+            padding-top: 1.15rem;
             border-top: 1px solid #e2e8f0;
         }
         .lite-parent-label {
-            margin: 0 0 0.55rem;
-            font-size: 0.7rem;
+            margin: 0 0 0.4rem;
+            font-size: 0.68rem;
             font-weight: 800;
             letter-spacing: 0.04em;
             color: #0f172a;
@@ -51,11 +56,8 @@
         .lite-parent p {
             margin: 0;
             font-size: 0.8125rem;
-            line-height: 1.75;
+            line-height: 1.65;
             color: #64748b;
-        }
-        .lite-parent p + p {
-            margin-top: 0.7rem;
         }
         .lite-parent-line {
             display: inline;
@@ -65,29 +67,23 @@
             text-underline-offset: 0.18em;
             text-decoration-thickness: 1px;
         }
-        .lite-parent-line:hover {
-            opacity: 0.85;
-        }
+        .lite-parent-line:hover { opacity: 0.85; }
     </style>
 </head>
 <body class="hero-bg min-h-screen text-slate-900">
     <main class="max-w-lg mx-auto px-6 min-h-[100dvh] flex flex-col pb-10">
         <div class="pt-16">
             <h1 class="text-4xl font-[900] tracking-tight">Kepty English <span style="color:var(--kepty-orange)">Lite</span></h1>
-            <p class="mt-6 text-sm text-slate-600 leading-relaxed">
-                Kepty English Liteは、プロサッカー選手向け英語学習サービス「Kepty English」の学習コンテンツを加工・再構成し、小学生〜高校生向けの無料版としてアップデートしたサービスです。
+            <p class="lite-lead">
+                プロ選手向け「Kepty English」の学習内容を、小〜高校生向けの無料版に再構成したサービスです。
             </p>
             <aside class="lite-aside" aria-label="ご案内">
                 <span class="lite-aside-rule" aria-hidden="true"></span>
-                <p>無料版だけでは、正しい進め方や日々の積み上げまで設計するのはむずかしいことがあります。本格的に取り組みたい方は、お気軽にご相談ください。</p>
+                <p>正しい進め方や日々の積み上げまで設計したい方は、お気軽にご相談ください。</p>
             </aside>
-            <section class="lite-parent" aria-label="保護者の方へ">
-                <h2 class="lite-parent-label">保護者の方へ</h2>
-                <p>小〜高校生のうちは、英語に触れる「量」と、止めない「継続」が伸びを大きく左右します。学校の読み書き中心だけでは「話す・聴く」の接点が足りにくいため、日々英語に触れ続けられる環境が大切です。</p>
-                <p>学習のヒントや続きの案内は、公式LINEでもお届けします。お子さま本人より、保護者の方のご登録をおすすめしています。　<a class="lite-parent-line" href="#" id="lite-official-line" target="_blank" rel="noopener noreferrer">公式LINEはこちら</a></p>
-            </section>
         </div>
-        <div class="flex-1 flex flex-col justify-center pb-[8vh]">
+
+        <div class="flex-1 flex flex-col justify-center pb-[6vh]">
             <a href="training.html"
                class="inline-flex items-center justify-center w-full rounded-2xl px-5 py-4 text-white font-bold text-sm shadow-sm"
                style="background:var(--kepty-orange)">
@@ -103,6 +99,11 @@
                 有料版の公式ウェブサイト
             </a>
         </div>
+
+        <section class="lite-parent" aria-label="保護者の方へ">
+            <h2 class="lite-parent-label">保護者の方へ</h2>
+            <p>子供のうちは英語に触れる「量」と止めない「継続」が大切です。ヒントや続報は公式LINEでもお届けします（保護者登録推奨）。　<a class="lite-parent-line" href="#" id="lite-official-line" target="_blank" rel="noopener noreferrer">公式LINEはこちら</a></p>
+        </section>
     </main>
 
     <div id="lite-contact-modal" hidden aria-hidden="true">
