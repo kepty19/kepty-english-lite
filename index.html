@@ -16,6 +16,27 @@
                 radial-gradient(900px 500px at 100% 0%, rgba(15, 23, 42, 0.06), transparent 50%),
                 linear-gradient(180deg, #fff 0%, #f8fafc 100%);
         }
+        .lite-aside {
+            margin-top: 1.25rem;
+            padding: 0.9rem 1rem;
+            background: rgba(206, 74, 34, 0.06);
+            border-left: 3px solid var(--kepty-orange);
+            border-radius: 0 0.75rem 0.75rem 0;
+        }
+        .lite-aside-label {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            color: var(--kepty-orange);
+            margin-bottom: 0.35rem;
+        }
+        .lite-aside p {
+            margin: 0;
+            font-size: 0.8125rem;
+            line-height: 1.65;
+            color: #475569;
+        }
     </style>
 </head>
 <body class="hero-bg min-h-screen text-slate-900">
@@ -25,9 +46,10 @@
             <p class="mt-6 text-sm text-slate-600 leading-relaxed">
                 Kepty English Liteは、プロサッカー選手向け英語学習サービス「Kepty English」の学習コンテンツを加工・再構成し、小学生〜高校生向けの無料版としてアップデートしたサービスです。
             </p>
-            <p class="mt-4 text-sm text-slate-600 leading-relaxed">
-                まずは無料で学習の中身に触れ、良さを感じていただければ幸いです。ただし、アプリがあるだけでは学習プログラムの組み立てや正しい進め方がわかりにくく、日々の積み上げとしては限界があります。効果的な進め方や伴走サポートをご希望の方は、有料版のご相談、または公式ウェブサイトをご覧ください。
-            </p>
+            <aside class="lite-aside" aria-label="ご案内">
+                <span class="lite-aside-label">ひとこと</span>
+                <p>まずは無料で中身を試してみてください。ただ、アプリだけでは正しい進め方や日々の積み上げには限界があります。本格的に取り組みたい方は、有料版のご相談または公式サイトへ。</p>
+            </aside>
         </div>
         <div class="flex-1 flex flex-col justify-center pb-[8vh]">
             <a href="training.html"
