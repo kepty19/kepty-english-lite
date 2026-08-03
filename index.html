@@ -17,25 +17,27 @@
                 linear-gradient(180deg, #fff 0%, #f8fafc 100%);
         }
         .lite-aside {
-            margin-top: 1.25rem;
-            padding: 0.9rem 1rem;
-            background: rgba(206, 74, 34, 0.06);
-            border-left: 3px solid var(--kepty-orange);
-            border-radius: 0 0.75rem 0.75rem 0;
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem 0 1rem 1rem;
+            border-left: 2px solid rgba(206, 74, 34, 0.85);
+            background: transparent;
         }
-        .lite-aside-label {
-            display: block;
-            font-size: 0.65rem;
-            font-weight: 800;
-            letter-spacing: 0.08em;
+        .lite-aside-icon {
+            flex-shrink: 0;
+            width: 1.125rem;
+            height: 1.125rem;
+            margin-top: 0.15rem;
             color: var(--kepty-orange);
-            margin-bottom: 0.35rem;
         }
         .lite-aside p {
             margin: 0;
             font-size: 0.8125rem;
-            line-height: 1.65;
-            color: #475569;
+            line-height: 1.7;
+            color: #64748b;
+            letter-spacing: 0.01em;
         }
     </style>
 </head>
@@ -47,7 +49,11 @@
                 Kepty English Liteは、プロサッカー選手向け英語学習サービス「Kepty English」の学習コンテンツを加工・再構成し、小学生〜高校生向けの無料版としてアップデートしたサービスです。
             </p>
             <aside class="lite-aside" aria-label="ご案内">
-                <span class="lite-aside-label">ひとこと</span>
+                <svg class="lite-aside-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 18h6" />
+                    <path d="M10 22h4" />
+                    <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z" />
+                </svg>
                 <p>まずは無料で中身を試してみてください。ただ、アプリだけでは正しい進め方や日々の積み上げには限界があります。本格的に取り組みたい方は、有料版のご相談または公式サイトへ。</p>
             </aside>
         </div>
