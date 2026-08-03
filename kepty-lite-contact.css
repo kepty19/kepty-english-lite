@@ -403,7 +403,7 @@ body.lite-contact-open {
   cursor: pointer;
 }
 
-/* Title neighbor: paid benefits */
+/* Title neighbor: paid benefits — luxury gold accent */
 .lite-paid-title-link {
   display: inline;
   margin: 0;
@@ -413,18 +413,21 @@ body.lite-contact-open {
   background: none;
   font-family: 'Open Sans', 'Noto Sans JP', sans-serif;
   font-size: 0.6875rem;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.2;
-  color: #CE4A22;
+  color: #C9A227;
   text-decoration: underline;
   text-underline-offset: 0.16em;
   text-decoration-thickness: 1px;
+  text-decoration-color: #C9A227;
   cursor: pointer;
   vertical-align: middle;
   transform: translateY(0.15rem);
 }
 .lite-paid-title-link:hover {
-  opacity: 0.85;
+  color: #B8860B;
+  text-decoration-color: #B8860B;
+  opacity: 1;
 }
 
 /* Shadowing page: always-visible Lite audio notice */
@@ -452,16 +455,19 @@ body.lite-contact-open {
   background: none;
   font: inherit;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.65;
-  color: #CE4A22;
+  color: #C9A227;
   text-decoration: underline;
   text-underline-offset: 0.18em;
   text-decoration-thickness: 1px;
+  text-decoration-color: #C9A227;
   cursor: pointer;
 }
 .sh-lite-paid-link:hover {
-  opacity: 0.85;
+  color: #B8860B;
+  text-decoration-color: #B8860B;
+  opacity: 1;
 }
 @media (min-width: 768px) {
   .sh-lite-audio-notice,
