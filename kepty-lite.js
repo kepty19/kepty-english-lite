@@ -11,9 +11,9 @@
     var WEB3FORMS_ACCESS_KEY = 'bcb8a667-538a-4b4c-a0a6-f6f88f95aa08';
     var WEB3FORMS_URL = 'https://api.web3forms.com/submit';
     var MSG_SHADOWING =
-        '現在ご活用頂いている無料版では、音源の再生ができません。機能をフルに活用されたい場合は、有料版のお申し込みをご実施ください。';
+        'いま使っている無料版では、音源の再生ができません。もっと使いこなしたいときは、有料版にお申し込みください。';
     var MSG_SHARE =
-        '現在ご活用頂いている無料版では、録音の共有ができません。機能をフルに活用されたい場合は、有料版のお申し込みをご実施ください。';
+        'いま使っている無料版では、録音の共有ができません。もっと使いこなしたいときは、有料版にお申し込みください。';
 
     var lastFocused = null;
     var pendingReason = '';
@@ -198,7 +198,7 @@
             var userEmail = String(data.get('userEmail') || '').trim();
             var userMessage = String(data.get('userMessage') || '').trim();
             if (!userName || !userEmail || !userMessage) {
-                setError('すべて入力してください');
+                setError('全部うめてください');
                 return;
             }
 
@@ -254,7 +254,7 @@
                     }
                     var apiMsg =
                         (res.result && (res.result.message || res.result.error)) ||
-                        ('送信に失敗しました（HTTP ' + res.status + '）');
+                        ('送れませんでした（HTTP ' + res.status + '）');
                     setError(
                         apiMsg +
                             ' ※GitHub Pages（github.io）は Web3Forms 側で制限されることがあります。届かない場合は contact@kepty.co へ直接メールください。'
@@ -262,7 +262,7 @@
                 })
                 .catch(function () {
                     setError(
-                        '送信に失敗しました。通信環境をご確認のうえ、contact@kepty.co へ直接メールでもお問い合わせください。'
+                        '送れませんでした。通信環境をご確認のうえ、contact@kepty.co へ直接メールでもお問い合わせください。'
                     );
                 })
                 .finally(function () {
