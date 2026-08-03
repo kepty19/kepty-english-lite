@@ -369,9 +369,16 @@ body.lite-contact-open {
   font-size: 0.875rem;
   line-height: 1.7;
   color: #334155;
+  white-space: pre-wrap;
+}
+#lite-notice-modal .lite-notice-actions {
+  margin-top: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
 }
 #lite-notice-modal .lite-notice-ok {
-  margin-top: 1.15rem;
+  margin-top: 0;
   width: 100%;
   border: none;
   border-radius: 0.75rem;
@@ -383,11 +390,47 @@ body.lite-contact-open {
   padding: 0.75rem 1rem;
   cursor: pointer;
 }
+#lite-notice-modal .lite-notice-consult {
+  width: 100%;
+  border: 1px solid rgba(206, 74, 34, 0.28);
+  border-radius: 0.75rem;
+  background: transparent;
+  color: var(--ln-accent);
+  font-family: var(--ln-font);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+}
+
+/* Title neighbor: paid benefits */
+.lite-paid-title-link {
+  display: inline;
+  margin: 0;
+  margin-left: 0.15rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: 'Open Sans', 'Noto Sans JP', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #CE4A22;
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+  vertical-align: middle;
+  transform: translateY(0.15rem);
+}
+.lite-paid-title-link:hover {
+  opacity: 0.85;
+}
 
 /* Shadowing page: always-visible Lite audio notice */
 .sh-lite-audio-notice {
   margin: 0;
-  padding: 0.85rem 1rem 0.9rem;
+  padding: 0.85rem 1rem 0.55rem;
   background: #f8fafc;
   border: none;
   border-radius: 0;
@@ -396,8 +439,33 @@ body.lite-contact-open {
   color: #475569;
   text-align: left;
 }
+.sh-lite-paid-cta {
+  margin: 0;
+  padding: 0 1rem 0.9rem;
+  background: #f8fafc;
+  text-align: left;
+}
+.sh-lite-paid-link {
+  display: inline;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.65;
+  color: #CE4A22;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+}
+.sh-lite-paid-link:hover {
+  opacity: 0.85;
+}
 @media (min-width: 768px) {
-  .sh-lite-audio-notice {
+  .sh-lite-audio-notice,
+  .sh-lite-paid-cta {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }

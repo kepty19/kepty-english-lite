@@ -15,6 +15,36 @@
     var MSG_SHARE =
         'いま使っている無料版では、録音の共有ができません。もっと使いこなしたいときは、有料版にお申し込みください。';
 
+    /** Per-module paid benefits (shown from title link). Mild, concrete, max ~3 lines. */
+    var PAID_BENEFITS = {
+        vocabulary:
+            '・単語の回転率を上げるための中長期プログラムが組まれています。\n・「何を・何周するか」で迷いやすいところを、伴走で整理できます。\n・継続しやすい学習設計の相談ができます。',
+        pronunciation:
+            '・正しい音の出し方を、プログラムに沿って定着させられます。\n・伸ばすべき音を見ながら、次の一歩を決めやすくなります。\n・継続のための進め方相談ができます。',
+        grammar:
+            '・文法の型を、解説→確認→運用の流れで積み上げられます。\n・つまずきに合わせて進め方を調整できます。\n・中長期で崩れにくい土台づくりを伴走します。',
+        shadowing:
+            '・音源を再生しながら、リンキング・リダクションなどの音の変化を確認できます。\n・録音提出とフィードバックで、聞き取り・発音の精度を高められます。\n・正しいシャドーイングの進め方をプログラムで固定できます。',
+        reading:
+            '・英語の語順どおりに読む力を、継続プログラムで伸ばせます。\n・「量」と「継続」を最大化する進め方を伴走します。\n・学校の読み書きだけでは足りにくい話す・聴く接点も設計できます。',
+        topicTalk:
+            '・公式LINEへの提出と添削で、すじのずれや言い直しに気づけます。\n・結論→理由→具体例の話し方を、日々の積み上げに落とせます。\n・テーマ練習の回転をプログラムで支えます。',
+        speaking:
+            '・英語らしい型を、ルール付き練習で定着させられます。\n・会話への橋渡しになる進め方を伴走します。\n・日々のテーマに沿った積み上げ設計ができます。',
+        chunk:
+            '・すばやく正確に文を組み立てる回転を、弱点つぶしまで含めて設計できます。\n・反応速度を上げるためのプログラムが組まれています。\n・続け方の相談ができます。'
+    };
+    var PAID_BENEFITS_TITLES = {
+        vocabulary: 'Vocabulary：有料版では',
+        pronunciation: 'Pronunciation：有料版では',
+        grammar: 'Grammar：有料版では',
+        shadowing: 'Shadowing：有料版では',
+        reading: 'Reading：有料版では',
+        topicTalk: 'Topic Talk：有料版では',
+        speaking: 'Speaking Form：有料版では',
+        chunk: 'Sentence Building：有料版では'
+    };
+
     var lastFocused = null;
     var pendingReason = '';
     var bound = false;
@@ -144,11 +174,19 @@
             '<div class="lite-notice-dialog" role="dialog" aria-modal="true" aria-labelledby="lite-notice-title">' +
             '<p class="lite-notice-title" id="lite-notice-title">ご案内</p>' +
             '<p class="lite-notice-text" id="lite-notice-text"></p>' +
+            '<div class="lite-notice-actions">' +
             '<button type="button" class="lite-notice-ok" data-lite-notice-close>OK</button>' +
+            '<button type="button" class="lite-notice-consult" id="lite-notice-consult" hidden>ご相談する</button>' +
+            '</div>' +
             '</div>';
         document.body.appendChild(wrap);
         wrap.addEventListener('click', function (ev) {
             var t = ev.target;
+            if (t && t.id === 'lite-notice-consult') {
+                closeLiteNotice(ev);
+                openContact('');
+                return;
+            }
             if (t && t.getAttribute && t.getAttribute('data-lite-notice-close') !== null) {
                 closeLiteNotice(ev);
             }
@@ -174,10 +212,21 @@
     }
 
     /** Shadowing play etc.: message only (no contact form). */
-    function showLiteNotice(message) {
+    function showLiteNotice(message, options) {
+        options = options || {};
         var modal = ensureNoticeModal();
+        var titleEl = $('lite-notice-title');
         var textEl = $('lite-notice-text');
+        var consultBtn = $('lite-notice-consult');
+        if (titleEl) titleEl.textContent = options.title || 'ご案内';
         if (textEl) textEl.textContent = message || '';
+        if (consultBtn) {
+            if (options.showConsult) {
+                consultBtn.hidden = false;
+            } else {
+                consultBtn.hidden = true;
+            }
+        }
         modal.classList.add('is-open');
         modal.removeAttribute('hidden');
         modal.setAttribute('aria-hidden', 'false');
@@ -190,6 +239,13 @@
             }
         }, 30);
         return false;
+    }
+
+    function showPaidBenefits(appName) {
+        var key = String(appName || 'vocabulary');
+        var body = PAID_BENEFITS[key] || PAID_BENEFITS.vocabulary;
+        var title = PAID_BENEFITS_TITLES[key] || '有料版では';
+        return showLiteNotice(body, { title: title, showConsult: true });
     }
 
     function showLiteUpgrade(kind) {
@@ -345,8 +401,10 @@
         showLiteUpgrade: showLiteUpgrade,
         showLiteNotice: showLiteNotice,
         closeLiteNotice: closeLiteNotice,
+        showPaidBenefits: showPaidBenefits,
         MSG_SHADOWING: MSG_SHADOWING,
-        MSG_SHARE: MSG_SHARE
+        MSG_SHARE: MSG_SHARE,
+        PAID_BENEFITS: PAID_BENEFITS
     };
 
     if (document.readyState === 'loading') {

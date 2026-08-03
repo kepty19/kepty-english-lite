@@ -583,6 +583,7 @@
     <header class="py-6 px-2">
         <div class="flex items-center gap-1.5 flex-wrap">
             <h1 id="app-title" class="text-3xl font-[900] text-slate-900 tracking-tighter">Vocabulary</h1>
+            <button type="button" id="lite-paid-title-link" class="lite-paid-title-link" onclick="if(window.KeptyLite){KeptyLite.showPaidBenefits(typeof currentApp!=='undefined'?currentApp:'vocabulary');} return false;">有料版では</button>
             <button type="button" id="kepty-round-memo-trigger" class="kepty-round-memo-trigger hidden" onclick="toggleKeptyRoundMemoPopover()" title="" aria-label=""><i data-lucide="pen-line" class="w-[13px] h-[13px]" aria-hidden="true"></i></button>
         </div>
         <p id="app-description" class="text-left text-[12px] md:text-[13px] text-slate-500 leading-relaxed mt-3 min-h-[3.6em]"></p>
@@ -3733,7 +3734,7 @@ function renderContent() {
     </div>
     <button id="sh-play-btn" onclick="playAudio('${item.lesson}_${item.theme}', this)" class="w-8 h-8 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center shadow-sm active:scale-90 transition-all flex-shrink-0" aria-label="再生（Liteでは不可）"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
   </div>
-  ${(typeof KEPTY_LITE !== 'undefined' && KEPTY_LITE) ? `<p class="sh-lite-audio-notice">※${(window.KeptyLite && window.KeptyLite.MSG_SHADOWING) ? window.KeptyLite.MSG_SHADOWING : '無料版のKepty English Liteではシャドーイングの音声再生ができません。本格的にシャドーイングを実施したい場合は、有料版をご利用ください。'}</p>` : ''}
+  ${(typeof KEPTY_LITE !== 'undefined' && KEPTY_LITE) ? `<p class="sh-lite-audio-notice">※${(window.KeptyLite && window.KeptyLite.MSG_SHADOWING) ? window.KeptyLite.MSG_SHADOWING : '無料版のKepty English Liteではシャドーイングの音声再生ができません。本格的にシャドーイングを実施したい場合は、有料版をご利用ください。'}</p><p class="sh-lite-paid-cta"><button type="button" class="sh-lite-paid-link" onclick="if(window.KeptyLite){KeptyLite.openContact('');} return false;">有料版では音源再生やリンキング・リダクションなどの音の変化確認ができます（ご相談はこちら）</button></p>` : ''}
   <div class="px-4 pt-3 pb-1">
     <div id="sh-progress-track" class="w-full h-6 flex items-center relative cursor-pointer" style="touch-action:none;">
       <div class="w-full h-[2px] bg-slate-100 relative rounded-full overflow-hidden pointer-events-none">

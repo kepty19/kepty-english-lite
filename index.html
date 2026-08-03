@@ -36,6 +36,38 @@
             color: #64748b;
             letter-spacing: 0.01em;
         }
+        .lite-parent {
+            margin-top: 1.75rem;
+            padding-top: 1.35rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        .lite-parent-label {
+            margin: 0 0 0.55rem;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            color: #0f172a;
+        }
+        .lite-parent p {
+            margin: 0;
+            font-size: 0.8125rem;
+            line-height: 1.75;
+            color: #64748b;
+        }
+        .lite-parent p + p {
+            margin-top: 0.7rem;
+        }
+        .lite-parent-line {
+            display: inline;
+            color: var(--kepty-orange);
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 0.18em;
+            text-decoration-thickness: 1px;
+        }
+        .lite-parent-line:hover {
+            opacity: 0.85;
+        }
     </style>
 </head>
 <body class="hero-bg min-h-screen text-slate-900">
@@ -49,6 +81,11 @@
                 <span class="lite-aside-rule" aria-hidden="true"></span>
                 <p>無料版だけでは、正しい進め方や日々の積み上げまで設計するのはむずかしいことがあります。本格的に取り組みたい方は、お気軽にご相談ください。</p>
             </aside>
+            <section class="lite-parent" aria-label="保護者の方へ">
+                <h2 class="lite-parent-label">保護者の方へ</h2>
+                <p>小〜高校生のうちは、英語に触れる「量」と、止めない「継続」が伸びを大きく左右します。学校の読み書き中心だけでは「話す・聴く」の接点が足りにくいため、日々英語に触れ続けられる環境が大切です。</p>
+                <p>学習のヒントや続きの案内は、公式LINEでもお届けします。お子さま本人より、保護者の方のご登録をおすすめしています。　<a class="lite-parent-line" href="#" id="lite-official-line" target="_blank" rel="noopener noreferrer">公式LINEはこちら</a></p>
+            </section>
         </div>
         <div class="flex-1 flex flex-col justify-center pb-[8vh]">
             <a href="training.html"
